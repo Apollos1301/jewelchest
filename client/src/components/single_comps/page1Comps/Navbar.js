@@ -1,12 +1,13 @@
 import React from "react";
-import cartImg from "../../imgs/shopping-cart.png";
 import styled from "styled-components";
-
+import cartImg from "../../imgs/shopping-cart.png";
+import contactUs from "../../imgs/contactUs.png";
 ////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////
 
 const NavDiv = styled.div`
+  position: fixed;
   display: flex;
   align-items: left;
   flex-direction: column;
@@ -38,7 +39,7 @@ const NavListLeft = styled.ul`
   display: flex;
   width: 70%;
   height: 45px;
-  gap: 100px;
+  gap: 5vw;
   background-color: #f8f1f3;
   border-bottom: 1px solid black;
   list-style-type: none;
@@ -47,7 +48,7 @@ const StyledLink = styled.li`
   font-size: 14px;
   color: black;
   padding-left: 10px;
-  margin-top: 18px;
+  margin-top: 12px;
   cursor: pointer;
   /*filter: drop-shadow(0px 0px 25px #fee7eb);*/
   @media only screen and (max-width: 500px) {
@@ -72,8 +73,6 @@ const BorderDiv = styled.div`
   border-bottom: 1px solid black;
 `;
 
-////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////
@@ -105,10 +104,19 @@ function Navbar() {
               display: "flex",
               justifyContent: "flex-end",
               paddingRight: "15px",
+              gap: "15px",
             }}
           >
             <img
+              src={contactUs}
+              alt="contactUs"
+              width="40px"
+              height="40px"
+              style={{ opacity: 0.7 }}
+            />
+            <img
               src={cartImg}
+              alt="cart"
               width="40px"
               height="40px"
               style={{ opacity: 0.7 }}

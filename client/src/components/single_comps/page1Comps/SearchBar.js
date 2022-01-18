@@ -1,18 +1,31 @@
-import React from 'react'
+import React from "react";
 import styled from "styled-components";
-
+import searchIcon from "../.././imgs/searchIcon.png";
 ////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////
 const SearchBarDiv = styled.div`
-`
-
+  display: flex;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 70%;
+  height: 50px;
+  justify-content: stretch;
+`;
+const SuchInput = styled.input`
+  width: 80%;
+`;
+////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////
 function SearchBar() {
-    return (
-        <div>
-            
-        </div>
-    )
+  return (
+    <SearchBarDiv>
+      <SuchInput type="text" placeholder="suche..." />
+      <img src={searchIcon} alt="Search" />
+    </SearchBarDiv>
+  );
 }
 
-export default SearchBar
+export default SearchBar;
