@@ -1,5 +1,6 @@
 import React from 'react'
-import Navbar from '../single_comps/Navbar'
+import Navbar from '../single_comps/page1Comps/Navbar'
+import SearchBar from '../single_comps/page1Comps/SearchBar'
 import styled from "styled-components";
 
 const TopDiv = styled.div`
@@ -11,6 +12,7 @@ function Home() {
     <div>
       <TopDiv>
         <Navbar />
+        <SearchBar/>
       </TopDiv>
     </div>
   );

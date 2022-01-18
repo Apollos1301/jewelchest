@@ -39,7 +39,7 @@ def amaz_damen():
         productRating = productSoup.find("span",{"class":"a-icon-alt"}).text[0:3].strip()
         productInfo.append(ObjProducts(productID, productURL, productName, productImage, productPrice, productRating))
         productID += 1
-        #print(productInfo[counter].price +" ====>   "+ productInfo[counter].link)
+        print(productInfo[counter].price +" ====>   "+ productInfo[counter].link+" ====>   "+productInfo[counter].rating)
         print(" ")
         print(" ")
         counter += 1
