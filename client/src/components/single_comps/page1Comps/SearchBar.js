@@ -15,6 +15,9 @@ const SearchBarDiv = styled.div`
 `;
 const SuchInput = styled.input`
   width: 80%;
+  border: 1px solid black;
+  border-right: none;
+  outline: none;
 `;
 ////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////
@@ -22,8 +25,17 @@ const SuchInput = styled.input`
 function SearchBar() {
   return (
     <SearchBarDiv>
-      <SuchInput type="text" placeholder="suche..." />
-      <img src={searchIcon} alt="Search" />
+      <SuchInput type="text" placeholder=" ... " />
+      <img
+        src={searchIcon}
+        alt="Search"
+        style={{
+          borderTop: "1px solid black",
+          borderBottom: "1px solid black",
+          borderRight: "1px solid black",
+          cursor: "pointer",
+        }}
+      />
     </SearchBarDiv>
   );
 }
