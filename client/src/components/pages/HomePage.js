@@ -1,38 +1,103 @@
 import React from "react";
 import styled from "styled-components";
-import Navbar from "../single_comps/page1Comps/Navbar";
-import Diamond from "../single_comps/page1Comps/Diamond";
-import SearchBar from "../single_comps/page1Comps/SearchBar";
-import SetProducts from "../single_comps/page1Comps/SetProducts";
-import Products from "../single_comps/page1Comps/Products";
+import Navbar from "../single_comps/homePageComps/Navbar_home";
+import Diamond from "../single_comps/homePageComps/Diamond";
+import SetProducts from "../single_comps/homePageComps/SetProducts";
+import Products from "../single_comps/homePageComps/Products";
+import Menue_prods from "../single_comps/homePageComps/Menue_prods";
+import MidCards from "../single_comps/homePageComps/MidCards";
+import TextInfo from "../single_comps/homePageComps/TextInfo";
+import ContactCard from "../single_comps/homePageComps/ContactCard";
+
 
 const TopDiv = styled.div`
   width: 100%;
-  height: 800px;
+  height: 1200px;
   overflow: hidden;
 `;
-const MidDiv = styled.div`
+////////////////////////////////////////////////////////////////////////
+const MidDiv1 = styled.div`
+  display: flex;
   margin-top: 140px;
   width: 100%;
-  height: 3200px;
+  height: 600px;
+  border: 1px solid black;
+  gap: 200px;
+  padding-left: 200px;
+  align-items: center;
 `;
+////////////////////////////////////////////////////////////////////////
+const MidDiv2 = styled.div`
+  margin-top: 140px;
+  width: 100%;
+  height: 2000px;
+`;
+////////////////////////////////////////////////////////////////////////
+const MidDiv3_inner = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 1600px;
+  height: 2000px;
+  margin-left: auto;
+  margin-right: auto;
+
+  border: 1px solid black;
+`;
+const MidDiv3 = styled.div`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 2300px;
+  border: 1px solid black;
+`;
+////////////////////////////////////////////////////////////////////////
+const MidDiv4 = styled.div`
+  padding-top: 600px;
+  width: 100%;
+  height: 1000px;
+  border: 1px solid black;
+`;
+const MidDiv4_inner = styled.div``;
+////////////////////////////////////////////////////////////////////////
+const MidDiv5 = styled.div`
+  margin-top: 140px;
+  width: 100%;
+  height: 2000px;
+`;
+////////////////////////////////////////////////////////////////////////
 const FootDiv = styled.div`
   margin-top: 140px;
   width: 100%;
-  height: 30%;
+  height: 300px;
 `;
 function Home() {
   return (
-    <div>
+    <div style={{ overflowY: "hidden" }}>
       <TopDiv>
         <Navbar />
         <Diamond />
       </TopDiv>
-      <MidDiv>
-        <SearchBar />
+      <MidDiv1>
+        <h1>132</h1>
+        <Menue_prods />
+      </MidDiv1>
+      <MidDiv2>
         <SetProducts />
         <Products />
-      </MidDiv>
+      </MidDiv2>
+      <MidDiv3>
+        <MidDiv3_inner>
+          <MidCards />
+          <MidCards />
+        </MidDiv3_inner>
+      </MidDiv3>
+      <MidDiv4>
+        <TextInfo />
+      </MidDiv4>
+      <MidDiv5>
+        <ContactCard />
+      </MidDiv5>
       <FootDiv></FootDiv>
     </div>
   );
