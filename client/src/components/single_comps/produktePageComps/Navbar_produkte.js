@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import react, { useEffect } from "react";
+import react, { useEffect, useState } from "react";
 import cartImg from "../../imgs/shopping-cart.png";
 import contactUs from "../../imgs/contactUs.png";
 import { Link } from "react-router-dom";
@@ -10,6 +10,7 @@ import { easeSinInOut } from "d3-ease";
 ////////////////////////////////////////////////////////////////
 
 const NavDiv = styled.div`
+  z-index: 99;
   position: fixed;
   display: flex;
   align-items: left;
@@ -85,6 +86,7 @@ const BorderDiv = styled.div`
 ////////////////////////////////////////////////////////////////
 
 function Navbar_produkte() {
+  const [navShow, setNavShow] = useState(true);
   const [style, setStyle] = useSpring(() => ({
     opacity: 1,
     y: 0,
@@ -93,11 +95,9 @@ function Navbar_produkte() {
   }));
   const controllNav = () => {
     if (window.scrollY >= 1200) {
-      setStyle.stop();
-      setStyle.start({ opacity: 0, y: -20, pointerEvents: "none" });
+      setNavShow(false);
     } else {
-      setStyle.stop();
-      setStyle.start({ opacity: 1, y: 0, pointerEvents: "all" });
+      setNavShow(true);
     }
   };
   useEffect(() => {
@@ -106,6 +106,14 @@ function Navbar_produkte() {
       window.removeEventListener("scroll", controllNav);
     };
   }, []);
+  if (!navShow) {
+    setStyle.stop();
+    setStyle.start({ opacity: 0, y: -20, pointerEvents: "none" });
+  } else {
+    setStyle.stop();
+    setStyle.start({ opacity: 1, y: 0, pointerEvents: "all" });
+  }
+
   return (
     <NavDiv as={animated.div} style={style}>
       <Logo>

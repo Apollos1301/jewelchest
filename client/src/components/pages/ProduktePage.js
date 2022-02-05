@@ -33,18 +33,29 @@ const FootDiv = styled.div`
   height: 300px;
 `;
 function ProduktePage({ allprods_display, deactProd }) {
+  const [filter, setFilter] = useState([
+    [
+      "sort",
+      {
+        preisAuf: false,
+        preisAb: false,
+        bewertungAuf: false,
+        bewertungAb: false,
+      },
+    ],
+    [
+      "filter",
+      ["marke", { pandora: false, swarowski: false }],
+      ["metalle", { gold: false, silber: false, edelstahl: false }],
+    ],
+  ]);
+
   var allprods = allprods_display;
-  
-
-  
-
   const [searchChar, setSearchTextChar] = useState("");
-
   const searcher = useRef(false);
   var new_prods = useRef([]);
   var past_prods = allprods_display;
   past_prods = past_prods.flat();
-  
 
   function searchText(text) {
     setSearchTextChar(text);
@@ -54,8 +65,6 @@ function ProduktePage({ allprods_display, deactProd }) {
       searcher.current = false;
       allprods = allprods_display;
     }
-
-    
   }
   if (searcher.current) {
     var prods = [];
@@ -69,7 +78,7 @@ function ProduktePage({ allprods_display, deactProd }) {
         new_prods.current.push(past_prods[i]);
       }
     }
-    
+
     var size = 25;
     for (var i = 0; i < new_prods.current.length; i += size) {
       prods.push(new_prods.current.slice(i, i + size));
@@ -78,10 +87,10 @@ function ProduktePage({ allprods_display, deactProd }) {
       allprods = prods;
     } else {
       allprods = allprods_display;
-      console.log("error nothing found")
+      console.log("error nothing found");
     }
   }
-  
+
   return (
     <div style={{ overflowY: "hidden" }}>
       <TopDiv>
@@ -90,7 +99,7 @@ function ProduktePage({ allprods_display, deactProd }) {
       <MidDiv1>
         <SearchBar searchOn={searchText} />
         <SetProducts deactProd={deactProd} />
-        <Products allprods_display={allprods} />
+        <Products allprods_display={allprods} filter={ filter }/>
       </MidDiv1>
       <MidDiv2>
         <MidCards />
@@ -101,3 +110,5 @@ function ProduktePage({ allprods_display, deactProd }) {
 }
 
 export default ProduktePage;
+
+
