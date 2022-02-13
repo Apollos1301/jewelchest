@@ -33,23 +33,17 @@ const FootDiv = styled.div`
   height: 300px;
 `;
 function ProduktePage({ allprods_display, deactProd }) {
-  const [filter, setFilter] = useState([
-    [
-      "sort",
-      {
-        preisAuf: false,
-        preisAb: false,
-        bewertungAuf: false,
-        bewertungAb: false,
-      },
-    ],
-    [
-      "filter",
-      ["marke", { pandora: false, swarowski: false }],
-      ["metalle", { gold: false, silber: false, edelstahl: false }],
-    ],
-  ]);
+  const [filter, setFilter] = useState(getFilter(allprods_display));
+  const filterSetter = (setter) => {
+    // console.log(setter)
 
+    setFilter([...setter]);
+  };
+  /*const toFindDuplicates = (arry) =>
+    arry.filter((item, index) => arry.indexOf(item) !== index);
+  const duplicateElementa = toFindDuplicates(filterProds);
+  console.log(duplicateElementa);*/
+  //console.log(counter)
   var allprods = allprods_display;
   const [searchChar, setSearchTextChar] = useState("");
   const searcher = useRef(false);
@@ -90,6 +84,7 @@ function ProduktePage({ allprods_display, deactProd }) {
       console.log("error nothing found");
     }
   }
+  console.log(filter);
 
   return (
     <div style={{ overflowY: "hidden" }}>
@@ -98,8 +93,12 @@ function ProduktePage({ allprods_display, deactProd }) {
       </TopDiv>
       <MidDiv1>
         <SearchBar searchOn={searchText} />
-        <SetProducts deactProd={deactProd} />
-        <Products allprods_display={allprods} filter={ filter }/>
+        <SetProducts
+          deactProd={deactProd}
+          filter={filter}
+          filterSet={filterSetter}
+        />
+        <Products allprods_display={allprods} filter={filter} />
       </MidDiv1>
       <MidDiv2>
         <MidCards />
@@ -111,4 +110,111 @@ function ProduktePage({ allprods_display, deactProd }) {
 
 export default ProduktePage;
 
+const getFilter = (allprods_display) => {
+  var arr = allprods_display;
+  arr = arr.flat();
+  var filterArr = [
+    { filter: "kategorie", all: [], lastActive: false },
+    { filter: "marke", all: [], lastActive: false },
+    { filter: "material", all: [], lastActive: false },
+    { filter: "farbe", all: [], lastActive: false },
+  ];
+  var endArr = [];
+  var uniq = [];
 
+  //////////////////////////
+  //var markenArr = [];
+  uniq = ["Ohrring", "Ohrstecker", "Kette", "Ring", "Armband", "Creole"];
+
+  uniq.map((item, index) => {
+    arr.map((prct, ind) => {
+      if (prct.product_keywords != null) {
+        let prodKategorie = prct.product_keywords.toLowerCase();
+        let savedKategorie = item.toLowerCase();
+        if (prodKategorie.search(savedKategorie) != -1) {
+          endArr.push(prct);
+        }
+      }
+    });
+    filterArr[0][item] = [false, endArr];
+    endArr = [];
+  });
+  //////////////////////////
+  var markenArr = [];
+  arr.map((prod, ind) => {
+    if (prod.product_marke != null) {
+      markenArr.push(prod.product_marke.toLowerCase());
+    }
+  });
+  uniq = [...new Set(markenArr)];
+
+  uniq.map((item, index) => {
+    arr.map((prct, ind) => {
+      if (prct.product_marke != null) {
+        let prodMarke = prct.product_marke.toLowerCase();
+        let savedMarke = item.toLowerCase();
+        if (prodMarke.search(savedMarke) != -1) {
+          endArr.push(prct);
+        }
+      }
+    });
+    filterArr[1][item] = [false, endArr];
+    endArr = [];
+  });
+  //////////////////////////
+  var materialArr = [];
+  arr.map((prod, ind) => {
+    if (prod.product_material != null) {
+      materialArr.push(prod.product_material.toLowerCase());
+    }
+  });
+  uniq = [...new Set(materialArr)];
+
+  uniq.map((item, index) => {
+    arr.map((prct, ind) => {
+      if (prct.product_material != null) {
+        let prodMaterial = prct.product_material.toLowerCase();
+        let savedMaterial = item.toLowerCase();
+        if (prodMaterial.search(savedMaterial) != -1) {
+          endArr.push(prct);
+        }
+      }
+    });
+    filterArr[2][item] = [false, endArr];
+    endArr = [];
+  });
+  //////////////////////////
+  var farbenArr = [];
+  arr.map((prod, ind) => {
+    if (prod.product_farbe != null) {
+      farbenArr.push(prod.product_farbe.toLowerCase());
+    }
+  });
+  uniq = [...new Set(farbenArr)];
+
+  uniq.map((item, index) => {
+    arr.map((prct, ind) => {
+      if (prct.product_farbe != null) {
+        let prodFarbe = prct.product_farbe.toLowerCase();
+        let savedFarbe = item.toLowerCase();
+        if (prodFarbe.search(savedFarbe) != -1) {
+          endArr.push(prct);
+        }
+      }
+    });
+    filterArr[3][item] = [false, endArr];
+    endArr = [];
+  });
+
+  return filterArr;
+};
+const updatedFilter = (lastFilter) => {
+  var newProds = [0, ["prod"]]
+  var prodArray = []
+  prodArray.unshift(newProds)
+
+  if (prodArray.length > 1) {
+    
+  }
+
+};

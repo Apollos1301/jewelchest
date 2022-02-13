@@ -60,9 +60,14 @@ class ChristSpider(scrapy.Spider):
         if (product_image == None):
             product_image = response.css('.swiper-slide-thumb-active::attr(src)').get()
         product_image_res = getsizes(str(product_image))
-        
-        
-
+        product_infos = response.css('.product-details-lists__list')
+        #product_infos_ = response.css('.product-details-lists__definition').css('::text').getall()
+        for infos in product_infos:
+            pre = infos.css('.product-details-lists__title').css('::text').get().lower()
+            if(pre == "material"):
+                product_material = infos.css('.product-details-lists__definition').css('::text').get().strip()
+            if(pre == "farbe"):
+                product_farbe = infos.css('.product-details-lists__definition').css('::text').get().strip()
 
         items['product_root'] = "Christ"
         items['product_link'] = product_link
@@ -72,6 +77,9 @@ class ChristSpider(scrapy.Spider):
         items['product_image'] = product_image
         items['product_image_res'] = product_image_res
         items['product_rating'] = response.meta.get('rating')
+        items['product_marke'] = response.css('.d-lg-inline-block').css('::text').get()
+        items['product_material'] = product_material
+        items['product_farbe'] = product_farbe
         return items
 
         

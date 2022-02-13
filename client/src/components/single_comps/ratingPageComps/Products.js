@@ -71,9 +71,8 @@ const NextPageIcons = styled.div`
 ////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////
-function Products({ allprods_display }) {
+function Products({ allprods_display}) {
   const [prodPage, setProdPage] = useState(0);
-
   //console.log(allprods);
   //console.log(allprods[2].product_image);
 
@@ -96,8 +95,6 @@ function Products({ allprods_display }) {
       : 0
   );
   var allprods_display_sorted = packer(allprods_display_sorted_);
-  
-  
 
   //console.log(packer(allprods_display_sorted));
   /*function compare(a, b) {

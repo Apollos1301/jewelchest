@@ -18,6 +18,9 @@ class AmazonItem(scrapy.Item):
     product_image = scrapy.Field()
     product_image_res = scrapy.Field()
     product_keywords = scrapy.Field()
+    product_marke = scrapy.Field()
+    product_material = scrapy.Field()
+    product_farbe = scrapy.Field()
     
 
 
@@ -33,5 +36,8 @@ class ChristItem(scrapy.Item):
     product_image = scrapy.Field()
     product_image_res = scrapy.Field()
     product_keywords = scrapy.Field()
+    product_marke = scrapy.Field()
+    product_material = scrapy.Field()
+    product_farbe = scrapy.Field()
 
     pass

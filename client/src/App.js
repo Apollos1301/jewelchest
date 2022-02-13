@@ -12,18 +12,62 @@ import christ_produkte from "./components/products/christ_produkte.json";
 function App() {
   var allprods_past = [];
   var allprods = [];
+  var amazon = [];
+  var christ = [];
+  const prodMaker = () => {
+    amazon_produkte.map((prod, index) => {
+      let obj = {
+        product_root: prod.product_root,
+        product_link: prod.product_link,
+        product_name: prod.product_name,
+        product_keywords: prod.product_keywords,
+        product_price: prod.product_price,
+        product_image: prod.product_image,
+        product_rating: prod.product_rating,
+        product_image_res: prod.product_image_res,
+        product_marke: prod.product_marke,
+        product_material: prod.product_material
+          .split(",")[0]
+          .split(";")[0]
+          .replace("-", " "),
+        product_farbe: prod.product_farbe,
+      };
+      amazon.push(obj)
+    });
+
+    christ_produkte.map((prod, index) => {
+      let obj = {
+        product_root: prod.product_root,
+        product_link: prod.product_link,
+        product_name: prod.product_name,
+        product_keywords: prod.product_keywords,
+        product_price: prod.product_price,
+        product_image: prod.product_image,
+        product_rating: prod.product_rating,
+        product_image_res: prod.product_image_res,
+        product_marke: prod.product_marke,
+        product_material: prod.product_material
+          .split(",")[0]
+          .split(";")[0]
+          .replace("-", " "),
+        product_farbe: prod.product_farbe,
+      };
+      christ.push(obj);
+    });
+  };
+  prodMaker()
   const [product, setProduct] = useState([
     {
       id: 1,
       enabled: true,
       seite: "amazon",
-      produkte: amazon_produkte,
+      produkte: amazon,
     },
     {
       id: 2,
       enabled: true,
       seite: "christ",
-      produkte: christ_produkte,
+      produkte: christ,
     },
   ]);
 
@@ -74,6 +118,7 @@ function App() {
 }
 
 export default App;
+
 function shuffle(d) {
   var j, x, i;
   for (i = d.length - 1; i > 0; i--) {
@@ -91,5 +136,3 @@ function shuffle(d) {
   }
   return a;
 }
-
-

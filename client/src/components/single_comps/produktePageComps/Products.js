@@ -73,6 +73,7 @@ const NextPageIcons = styled.div`
 ////////////////////////////////////////////////////////////////
 function Products({ allprods_display, filter }) {
   const [prodPage, setProdPage] = useState(0);
+  
   return (
     <div>
       <AddDiv />
