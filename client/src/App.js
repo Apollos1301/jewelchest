@@ -32,7 +32,7 @@ function App() {
           .replace("-", " "),
         product_farbe: prod.product_farbe,
       };
-      amazon.push(obj)
+      amazon.push(obj);
     });
 
     christ_produkte.map((prod, index) => {
@@ -55,7 +55,7 @@ function App() {
       christ.push(obj);
     });
   };
-  prodMaker()
+  prodMaker();
   const [product, setProduct] = useState([
     {
       id: 1,
@@ -88,6 +88,7 @@ function App() {
         obj["enabled"] = !obj.enabled;
       }
     });
+    console.log("awdaw");
     setProduct(newObj);
   }
   return (
