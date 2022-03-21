@@ -3,13 +3,13 @@ import styled from "styled-components";
 
 const Menue = styled.div`
   display: flex;
-  width: 1500px;
+  width: 85%;
   height: 500px;
-  gap: 50px;
+  gap: 10%;
   border: 1px solid black;
 `;
 const MenueIcons = styled.div`
-  width: 300px;
+  width: 400px;
   height: 500px;
   border: 1px solid black;
 `;

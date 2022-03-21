@@ -120,7 +120,6 @@ function SetProducts({ deactProd, filter, setFilter, deleteList, filterlist }) {
   const materialKeys = [];
   const markenKeys = [];
   const farbenKeys = [];
-  console.log(deleteList);
   const keySetter = () => {
     filter[0].map((key, index) => {
       kategorieKeys.push(key);
@@ -173,8 +172,6 @@ function SetProducts({ deactProd, filter, setFilter, deleteList, filterlist }) {
   };
   keySetter();
   const filtersetter = (n, m) => {
-    console.log(n);
-    console.log(m);
     var filterr = filter;
     let setter = [0, 0];
     let check = false;

@@ -19,7 +19,7 @@ const MidDiv2 = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 1600px;
+  width: 100%;
   height: 800px;
   margin-left: auto;
   margin-right: auto;
@@ -34,8 +34,9 @@ const FootDiv = styled.div`
 `;
 function ProduktePage({ allprods_display, deactProd }) {
   const [allprods, setAllProds] = useState(allprods_display);
+  const [pageNumber, setPageNumber] = useState(0);
   const filterDeleteList = useRef();
-  var [filter, setFilter] = useState([
+  const [filter, setFilter] = useState([
     filterKategorie(allprods.flat()),
     filterMarke(allprods.flat()),
     filterMaterial(allprods.flat()),
@@ -60,7 +61,7 @@ function ProduktePage({ allprods_display, deactProd }) {
   ////////////////////////////////////////////////////////////////
   const newFilter = (filter, n, m, setter, prods) => {
     filterSetts.current = [n, m, setter, prods];
-    console.log(prods);
+    setPageNumber(0);
     if (prods.length > 0) {
       if (filterSetts.current[2]) {
         let newFilt = addFilter(filterSetts.current);
@@ -239,6 +240,10 @@ function ProduktePage({ allprods_display, deactProd }) {
           allprods_display={allprods}
           filter={filter}
           filterSetts={filterSetts.current}
+          pPage={pageNumber}
+          setpPage={(number) => {
+            setPageNumber(number);
+          }}
         />
       </MidDiv1>
       <MidDiv2>

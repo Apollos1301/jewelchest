@@ -4,12 +4,23 @@ import RatingPage from "./components/pages/RatingPage";
 import ShopsPage from "./components/pages/ShopsPage";
 import CouponPage from "./components/pages/CouponPage";
 import InfoPage from "./components/pages/InfoPage";
+//////////////////////////////////////////
+import AppHomePage from "./components/appV/appPages/AppHomePage";
+import AppProduktePage from "./components/appV/appPages/AppProduktePage";
+import AppRatingPage from "./components/appV/appPages/AppRatingPage";
+import AppShopsPage from "./components/appV/appPages/AppShopsPage";
+import AppCouponPage from "./components/appV/appPages/AppCouponPage"
+import AppInfoPage from "./components/appV/appPages/AppInfoPage"
+//////////////////////////////////////////
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
 import amazon_produkte from "./components/products/amazon_produkte.json";
 import christ_produkte from "./components/products/christ_produkte.json";
+import useWindowDimensions from "./components/useWindowDimensions";
 
 function App() {
+  const { height, width } = useWindowDimensions();
+  const mobileV = useRef(false);
   var allprods_past = [];
   var allprods = [];
   var amazon = [];
@@ -91,29 +102,59 @@ function App() {
     console.log("awdaw");
     setProduct(newObj);
   }
+  if (width <= 1325) {
+    mobileV.current = true;
+  } else {
+    mobileV.current = false;
+  }
+  console.log(mobileV.current);
   return (
     <Router>
-      <Routes>
-        <Route path="/" exact element={<HomePage />} />
-        <Route
-          path="/schmuck_produkte"
-          exact
-          element={
-            <ProduktePage
-              allprods_display={allprods_display}
-              deactProd={deactivateProd}
-            />
-          }
-        />
-        <Route
-          path="/top_bewertet"
-          exact
-          element={<RatingPage allprods_display={allprods_display} />}
-        />
-        <Route path="/all_shops" exact element={<ShopsPage />} />
-        <Route path="/coupons" exact element={<CouponPage />} />
-        <Route path="/info" exact element={<InfoPage />} />
-      </Routes>
+      {mobileV.current ? (
+        <Routes>
+          <Route path="/" exact element={<AppHomePage />} />
+          <Route
+            path="/schmuck_produkte"
+            exact
+            element={
+              <AppProduktePage
+                allprods_display={allprods_display}
+                deactProd={deactivateProd}
+              />
+            }
+          />
+          <Route
+            path="/top_bewertet"
+            exact
+            element={<AppRatingPage allprods_display={allprods_display} />}
+          />
+          <Route path="/all_shops" exact element={<AppShopsPage />} />
+          <Route path="/coupons" exact element={<AppCouponPage />} />
+          <Route path="/info" exact element={<AppInfoPage />} />
+        </Routes>
+      ) : (
+        <Routes>
+          <Route path="/" exact element={<HomePage />} />
+          <Route
+            path="/schmuck_produkte"
+            exact
+            element={
+              <ProduktePage
+                allprods_display={allprods_display}
+                deactProd={deactivateProd}
+              />
+            }
+          />
+          <Route
+            path="/top_bewertet"
+            exact
+            element={<RatingPage allprods_display={allprods_display} />}
+          />
+          <Route path="/all_shops" exact element={<ShopsPage />} />
+          <Route path="/coupons" exact element={<CouponPage />} />
+          <Route path="/info" exact element={<InfoPage />} />
+        </Routes>
+      )}
     </Router>
   );
 }

@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import Navbar from "../single_comps/homePageComps/Navbar_home";
-import Diamond from "../single_comps/homePageComps/Diamond";
 import SetProducts from "../single_comps/homePageComps/SetProducts";
 import Products from "../single_comps/homePageComps/Products";
 import Menue_prods from "../single_comps/homePageComps/Menue_prods";
@@ -22,7 +21,7 @@ const MidDiv1 = styled.div`
   width: 100%;
   height: 600px;
   border: 1px solid black;
-  gap: 200px;
+  gap: 80px;
   padding-left: 200px;
   align-items: center;
 `;
@@ -37,11 +36,10 @@ const MidDiv3_inner = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 1600px;
+  width: 100%;
   height: 2000px;
   margin-left: auto;
   margin-right: auto;
-
   border: 1px solid black;
 `;
 const MidDiv3 = styled.div`
@@ -58,7 +56,6 @@ const MidDiv4 = styled.div`
   height: 1000px;
   border: 1px solid black;
 `;
-const MidDiv4_inner = styled.div``;
 ////////////////////////////////////////////////////////////////////////
 const MidDiv5 = styled.div`
   margin-top: 140px;
@@ -76,10 +73,9 @@ function Home() {
     <div style={{ overflowY: "hidden" }}>
       <TopDiv>
         <Navbar />
-        <Diamond />
       </TopDiv>
       <MidDiv1>
-        <h1>132</h1>
+        <h1>PC</h1>
         <Menue_prods />
       </MidDiv1>
       <MidDiv2>

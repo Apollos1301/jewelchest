@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import react, { useEffect, useState } from "react";
-import cartImg from "../../imgs/shopping-cart.png";
+import likeHeart from "../../imgs/likeHeart.png";
 import contactUs from "../../imgs/contactUs.png";
 import { Link } from "react-router-dom";
 import { animated, useSpring, config } from "react-spring";
@@ -147,7 +147,7 @@ function Navbar_info() {
               style={{ opacity: 0.7 }}
             />
             <img
-              src={cartImg}
+              src={likeHeart}
               alt="cart"
               width="40px"
               height="40px"
