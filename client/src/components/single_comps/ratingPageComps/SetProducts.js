@@ -31,16 +31,16 @@ function SetProducts() {
     <StyledDiv>
       <StyledList>
         <StyledListItems>
-          <a href="">a</a>
+          <a href="#">a</a>
         </StyledListItems>
         <StyledListItems>
-          <a href="">b</a>
+          <a href="#">b</a>
         </StyledListItems>
         <StyledListItems>
-          <a href="">c</a>
+          <a href="#">c</a>
         </StyledListItems>
         <StyledListItems>
-          <a href="">d</a>
+          <a href="#">d</a>
         </StyledListItems>
       </StyledList>
     </StyledDiv>

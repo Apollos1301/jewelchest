@@ -9,14 +9,14 @@ import AppHomePage from "./components/appV/appPages/AppHomePage";
 import AppProduktePage from "./components/appV/appPages/AppProduktePage";
 import AppRatingPage from "./components/appV/appPages/AppRatingPage";
 import AppShopsPage from "./components/appV/appPages/AppShopsPage";
-import AppCouponPage from "./components/appV/appPages/AppCouponPage"
-import AppInfoPage from "./components/appV/appPages/AppInfoPage"
+import AppCouponPage from "./components/appV/appPages/AppCouponPage";
+import AppInfoPage from "./components/appV/appPages/AppInfoPage";
 //////////////////////////////////////////
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
 import amazon_produkte from "./components/products/amazon_produkte.json";
 import christ_produkte from "./components/products/christ_produkte.json";
-import useWindowDimensions from "./components/useWindowDimensions";
+import useWindowDimensions from "./components/hooks/useWindowDimensions";
 
 function App() {
   const { height, width } = useWindowDimensions();
