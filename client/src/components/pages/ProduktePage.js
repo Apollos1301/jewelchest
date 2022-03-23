@@ -32,7 +32,7 @@ const FootDiv = styled.div`
   width: 100%;
   height: 300px;
 `;
-function ProduktePage({ allprods_display, deactProd }) {
+function ProduktePage({ allprods_display, deactProd, shopList }) {
   const [allprods, setAllProds] = useState(allprods_display);
   const [pageNumber, setPageNumber] = useState(0);
   const filterDeleteList = useRef();
@@ -231,6 +231,7 @@ function ProduktePage({ allprods_display, deactProd }) {
       <MidDiv1>
         <SetProducts
           deactProd={deactProd}
+          shopList={shopList}
           filter={filter}
           setFilter={newFilter}
           deleteList={filterDeleteList.current}
@@ -321,7 +322,15 @@ const filterKategorie = (prods) => {
   let filter = [];
   let uniq = [];
   let endArr = [];
-  uniq = ["Armband", "Creole", "Damenring", "Kette", "Ohrring", "Ohrstecker"];
+  uniq = [
+    "Armband",
+    "Creole",
+    "Damenring",
+    "Kette",
+    "Ohrring",
+    "Ohrstecker",
+    "Charm",
+  ];
   endArr = [];
   uniq.map((item, index) => {
     prods.map((prct, ind) => {
@@ -336,7 +345,32 @@ const filterKategorie = (prods) => {
     filter.push([item, endArr, false]);
     endArr = [];
   });
-  return filter;
+  //console.log(filter);
+  let end = [
+    ["Armbänder", [], false],
+    ["Ketten", [], false],
+    ["Ringe", [], false],
+    ["Ohrringe", [], false],
+    ["Charms", [], false],
+  ];
+  let newList = [];
+  newList.push(filter[0][1]);
+  end[0][1] = newList.flat();
+  newList = [];
+  newList.push(filter[3][1]);
+  end[1][1] = newList.flat();
+  newList = [];
+  newList.push(filter[2][1]);
+  end[2][1] = newList.flat();
+  newList = [];
+  newList.push(filter[1][1]);
+  newList.push(filter[4][1]);
+  newList.push(filter[5][1]);
+  end[3][1] = newList.flat();
+  newList = [];
+  newList.push(filter[6][1]);
+  end[4][1] = newList.flat();
+  return end;
 };
 ////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////

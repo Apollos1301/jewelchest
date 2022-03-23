@@ -18,8 +18,8 @@ const NavDiv = styled.div`
   flex-direction: column;
   width: 100%;
   margin-top: 20px;
-  border-top: 10px outset black;
-  border-bottom: 1px solid black;
+  border-top: 10px outset #e5e0e2;
+  /*border-bottom: 1px solid black;*/
 `;
 ////////////////////////////////////////////////////////////////
 const Logo = styled.div`
@@ -27,7 +27,7 @@ const Logo = styled.div`
   gap: 5px;
   padding: 6px;
   padding-left: 10px;
-  background-color: #f8f1f3;
+  background-color: #fedde6;
 `;
 const LogoSpan = styled(Link)`
   font-size: 15px;
@@ -41,7 +41,7 @@ const NavList = styled.div`
   height: 60px;
   padding-top: 8px;
   justify-content: space-between;
-  background-color: #f8f1f3;
+  background-color: #fedde6;
 `;
 ////////////////////////////////
 const NavListLeft = styled.ul`

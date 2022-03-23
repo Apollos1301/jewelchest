@@ -99,7 +99,6 @@ function App() {
         obj["enabled"] = !obj.enabled;
       }
     });
-    console.log("awdaw");
     setProduct(newObj);
   }
   if (width <= 1325) {
@@ -107,7 +106,6 @@ function App() {
   } else {
     mobileV.current = false;
   }
-  console.log(mobileV.current);
   return (
     <Router>
       {mobileV.current ? (
@@ -120,15 +118,26 @@ function App() {
               <AppProduktePage
                 allprods_display={allprods_display}
                 deactProd={deactivateProd}
+                shopList={product}
               />
             }
           />
           <Route
             path="/top_bewertet"
             exact
-            element={<AppRatingPage allprods_display={allprods_display} />}
+            element={
+              <AppRatingPage
+                allprods_display={allprods_display}
+                deactProd={deactivateProd}
+                shopList={product}
+              />
+            }
           />
-          <Route path="/all_shops" exact element={<AppShopsPage />} />
+          <Route
+            path="/all_shops"
+            exact
+            element={<AppShopsPage shopList={product} />}
+          />
           <Route path="/coupons" exact element={<AppCouponPage />} />
           <Route path="/info" exact element={<AppInfoPage />} />
         </Routes>
@@ -142,15 +151,26 @@ function App() {
               <ProduktePage
                 allprods_display={allprods_display}
                 deactProd={deactivateProd}
+                shopList={product}
               />
             }
           />
           <Route
             path="/top_bewertet"
             exact
-            element={<RatingPage allprods_display={allprods_display} />}
+            element={
+              <RatingPage
+                allprods_display={allprods_display}
+                deactProd={deactivateProd}
+                shopList={product}
+              />
+            }
           />
-          <Route path="/all_shops" exact element={<ShopsPage />} />
+          <Route
+            path="/all_shops"
+            exact
+            element={<ShopsPage shopList={product} />}
+          />
           <Route path="/coupons" exact element={<CouponPage />} />
           <Route path="/info" exact element={<InfoPage />} />
         </Routes>

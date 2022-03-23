@@ -16,20 +16,22 @@ const NavDiv = styled.div`
   align-items: left;
   flex-direction: column;
   width: 100%;
-  height: 100px;
+  
   margin-top: 20px;
-  border-top: 15px outset black;
+  border-top: 15px outset #e5e0e2;
 `;
 ////////////////////////////////////////////////////////////////
 const Logo = styled.div`
   display: flex;
+  justify-content: center;
+  width: 100%;
   gap: 5px;
   padding: 6px;
   padding-left: 10px;
-  background-color: #f8f1f3;
+  background-color: #fedde6;
 `;
 const LogoSpan = styled(Link)`
-  font-size: 15px;
+  font-size: 25px;
   text-decoration: none;
   list-style-type: none;
 `;
@@ -37,17 +39,17 @@ const LogoSpan = styled(Link)`
 const NavList = styled.div`
   display: flex;
   width: 100%;
-  height: 200px;
   justify-content: space-between;
 `;
 ////////////////////////////////
 const NavListLeft = styled.ul`
   display: flex;
-  width: 70%;
+  width: 90%;
   height: 45px;
   gap: 5vw;
-  background-color: #f8f1f3;
-  border-bottom: 1px solid black;
+  background-color: #fedde6;
+  /*
+  border-bottom: 1px solid black;*/
   list-style-type: none;
 `;
 const StyledLink = styled(Link)`
@@ -71,14 +73,15 @@ const NavListRight = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 30%;
-  background-color: #f8f1f3;
+  width: 10%;
+  height: 58px;
+  background-color: #fedde6;
 `;
 const BorderDiv = styled.div`
   width: 100%;
   height: 25%;
-  border-left: 1px solid black;
-  border-bottom: 1px solid black;
+  /*border-left: 1px solid black;
+  border-bottom: 1px solid black;*/
 `;
 
 ////////////////////////////////////////////////////////////////
@@ -117,10 +120,18 @@ function Navbar() {
   return (
     <NavDiv as={animated.div} style={style}>
       <Logo>
-        <LogoSpan to="/">L</LogoSpan>
-        <LogoSpan to="/">O</LogoSpan>
-        <LogoSpan to="/">G</LogoSpan>
-        <LogoSpan to="/">O</LogoSpan>
+        <div>
+          <LogoSpan to="/">J</LogoSpan>
+          <LogoSpan to="/">e</LogoSpan>
+          <LogoSpan to="/">w</LogoSpan>
+          <LogoSpan to="/">e</LogoSpan>
+          <LogoSpan to="/">l</LogoSpan>
+          <LogoSpan to="/">C</LogoSpan>
+          <LogoSpan to="/">h</LogoSpan>
+          <LogoSpan to="/">e</LogoSpan>
+          <LogoSpan to="/">s</LogoSpan>
+          <LogoSpan to="/">t</LogoSpan>
+        </div>
       </Logo>
       <NavList>
         <NavListLeft>

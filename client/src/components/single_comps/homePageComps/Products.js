@@ -68,7 +68,6 @@ const ProductImage = styled.div`
 ////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////
 function Products() {
-  
   const [prodPage, setProdPage] = useState(0);
   var allprods_past = [];
   var allprods = [];
@@ -85,7 +84,7 @@ function Products() {
         <AddDiv></AddDiv>
         <StyledDiv>
           {allprods_display.current[prodPage].map((prod, index) => (
-            <a href={prod.product_link}>
+            <a href={prod.product_link} style={{ textDecoration: "none" }}>
               <SingleProd
                 key={index}
                 id={index}
@@ -116,7 +115,7 @@ function shuffle(d) {
   var a = [];
   for (b = 0; b <= d.length; b++) {
     c.push(d[b]);
-    if (c.length == 12) {
+    if (c.length == 16) {
       a.push(c);
       c = [];
     }

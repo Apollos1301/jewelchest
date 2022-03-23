@@ -1,6 +1,8 @@
 import React, { useRef } from "react";
 import styled from "styled-components";
 import dropDownImg from "../../imgs/drop_down.png";
+import amazonLogo from "../../imgs/amazonLogo.jpg";
+import christLogo from "../../imgs/christLogo.png";
 import { animated, useSpring, config, useSprings } from "react-spring";
 import { easeSinInOut } from "d3-ease";
 ////////////////////////////////////////////////////////////////
@@ -15,16 +17,23 @@ const StyledDiv = styled.div`
   margin-top: 20px;
   border: 1px solid black;
 `;
-const StyledList = styled.ul`
+const StyledList = styled.div`
   display: flex;
   width: 100%;
   height: 250px;
-  justify-content: space-between;
-  align-items: flex-start;
+  justify-content: center;
+  gap: 20px;
+  align-items: center;
   list-style-type: none;
 `;
-const StyledListItems = styled.li`
+const StyledListItems = styled.div`
+  width: 165px;
+  height: 80px;
   cursor: pointer;
+  img {
+    width: 100%;
+    height: auto;
+  }
 `;
 const FilterDiv = styled.div`
   width: 100%;
@@ -107,7 +116,14 @@ const DeleteListItem = styled.div`
 ////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////
-function SetProducts({ deactProd, filter, setFilter, deleteList, filterlist }) {
+function SetProducts({
+  deactProd,
+  shopList,
+  filter,
+  setFilter,
+  deleteList,
+  filterlist,
+}) {
   const [dropDown, setDropDown] = useSprings(4, (index) => ({
     transform: "rotate(0deg)",
   }));
@@ -196,18 +212,22 @@ function SetProducts({ deactProd, filter, setFilter, deleteList, filterlist }) {
   return (
     <div>
       <StyledDiv>
-        <StyledList onClick={() => deactProd(1)}>
+        <StyledList>
           <StyledListItems>
-            <a href="">a</a>
+            <img
+              src={amazonLogo}
+              alt="Amazon"
+              onClick={() => deactProd(1)}
+              style={{ opacity: shopList[0]["enabled"] ? "1" : "0.3" }}
+            />
           </StyledListItems>
           <StyledListItems>
-            <a href="">b</a>
-          </StyledListItems>
-          <StyledListItems>
-            <a href="">c</a>
-          </StyledListItems>
-          <StyledListItems>
-            <a href="">d</a>
+            <img
+              src={christLogo}
+              alt="Christ"
+              onClick={() => deactProd(2)}
+              style={{ opacity: shopList[1]["enabled"] ? "1" : "0.3" }}
+            />
           </StyledListItems>
         </StyledList>
         <FilterDiv>

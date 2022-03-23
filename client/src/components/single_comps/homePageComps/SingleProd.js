@@ -9,8 +9,8 @@ const ProductDiv = styled.div`
   width: 16vw;
   flex-direction: column;
   flex-wrap: wrap;
-  height: 450px;
-  border: 0.1px solid black;
+  height: 300px;
+
   margin-top: 10px;
   align-items: flex-start;
 `;
@@ -18,8 +18,8 @@ const ProductImage = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
-  height: 380px;
-  border: 1px solid black;
+  height: 240px;
+
   img {
     width: 70%;
     height: auto;
@@ -31,8 +31,9 @@ const ProductImage = styled.div`
 const ProductInfo = styled.div`
   display: flex;
   flex-direction: column;
+  color: black;
   width: 100%;
-  height: 60px;
+  height: 30px;
 `;
 
 function SingleProd({ id, imgRes, produkt }) {
@@ -44,7 +45,7 @@ function SingleProd({ id, imgRes, produkt }) {
     style = { width: "12vw", height: "auto" };
   }
   if (imgRes[0] == imgRes[1]) {
-    style = { width: "12vw", height: "280px" };
+    style = { width: "12vw", height: "180px" };
   }
 
   return (
@@ -55,10 +56,19 @@ function SingleProd({ id, imgRes, produkt }) {
       <ProductInfo>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <div style={{ display: "flex", flexDirection: "column" }}>
-            <h5>{produkt.product_name}</h5>
-            <h6>{produkt.product_keywords.slice(0, 35)}...</h6>
+            <h5
+              style={{
+                fontSize: produkt.product_name != null ? "15px" : "10px",
+              }}
+            >
+              {produkt.product_name != null ? produkt.product_name : "."}
+            </h5>
+            <h6>
+              {produkt.product_keywords.slice(0, 25)}
+              {produkt.product_keywords.length > 25 ? "..." : ""}
+            </h6>
           </div>
-          <h3>{produkt.product_price}€</h3>
+          <h3>{produkt.product_price.replace(",", ".")}€</h3>
         </div>
         <div>{produkt.product_root}</div>
       </ProductInfo>

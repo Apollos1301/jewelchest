@@ -1,13 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import Navbar from "../single_comps/homePageComps/Navbar_home";
-import SetProducts from "../single_comps/homePageComps/SetProducts";
 import Products from "../single_comps/homePageComps/Products";
 import Menue_prods from "../single_comps/homePageComps/Menue_prods";
 import MidCards from "../single_comps/homePageComps/MidCards";
 import TextInfo from "../single_comps/homePageComps/TextInfo";
 import ContactCard from "../single_comps/homePageComps/ContactCard";
-
 
 const TopDiv = styled.div`
   width: 100%;
@@ -20,9 +18,6 @@ const MidDiv1 = styled.div`
   margin-top: 140px;
   width: 100%;
   height: 600px;
-  border: 1px solid black;
-  gap: 80px;
-  padding-left: 200px;
   align-items: center;
 `;
 ////////////////////////////////////////////////////////////////////////
@@ -75,11 +70,9 @@ function Home() {
         <Navbar />
       </TopDiv>
       <MidDiv1>
-        <h1>PC</h1>
         <Menue_prods />
       </MidDiv1>
       <MidDiv2>
-        <SetProducts />
         <Products />
       </MidDiv2>
       <MidDiv3>

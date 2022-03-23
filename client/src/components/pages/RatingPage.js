@@ -14,15 +14,14 @@ const MidDiv1 = styled.div`
   width: 100%;
   margin-top: 10px;
 `;
-function RatingPage({ allprods_display }) {
-  
+function RatingPage({ allprods_display, deactProd, shopList }) {
   return (
     <div style={{ overflowY: "hidden" }}>
       <TopDiv>
         <Navbar_rating />
       </TopDiv>
       <MidDiv1>
-        <SetProducts/>
+        <SetProducts deactProd={deactProd} shopList={shopList} />
         <Products allprods_display={allprods_display} />
       </MidDiv1>
     </div>

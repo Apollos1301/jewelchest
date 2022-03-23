@@ -71,59 +71,58 @@ const NextPageIcons = styled.div`
 ////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////
-function Products({ allprods_display}) {
+function Products({ allprods_display }) {
   const [prodPage, setProdPage] = useState(0);
-  //console.log(allprods);
-  //console.log(allprods[2].product_image);
 
   var allprods_display_ = allprods_display;
 
   allprods_display_ = allprods_display_.flat();
   //console.log(allprods_display_);
   const allprods_display_sorted_ = [];
-
-  allprods_display_.map((obj, index) => {
-    if (obj.product_rating != null) {
-      allprods_display_sorted_.push(obj);
-    }
-  });
-  allprods_display_sorted_.sort((a, b) =>
-    a.product_rating < b.product_rating
-      ? 1
-      : b.product_rating < a.product_rating
-      ? -1
-      : 0
-  );
-  var allprods_display_sorted = packer(allprods_display_sorted_);
-
-  //console.log(packer(allprods_display_sorted));
-  /*function compare(a, b) {
-    if (a.product_rating < b.product_rating) {
-      return -1;
-    }
-    if (a.product_rating > b.product_rating) {
-      return 1;
-    }
-    return 0;
+  const ratingMaker = () => {
+    allprods_display_.map((obj, index) => {
+      if (obj.product_rating != null) {
+        allprods_display_sorted_.push(obj);
+      }
+    });
+    allprods_display_sorted_.sort((a, b) =>
+      a.product_rating < b.product_rating
+        ? 1
+        : b.product_rating < a.product_rating
+        ? -1
+        : 0
+    );
+    return packer(allprods_display_sorted_);
+  };
+  var allprods_display_sorted = [];
+  const noProds = useRef(false);
+  if (allprods_display.length < 1) {
+    noProds.current = true;
+  } else {
+    allprods_display_sorted = ratingMaker();
+    noProds.current = false;
   }
-  allprods_display_ed.(compare);*/
-  //console.log(shuffle(allprods));
+
   return (
     <div>
       <AddDiv />
       <MainDiv>
-        <StyledDiv>
-          {allprods_display_sorted[prodPage].map((prod, index) => (
-            <a href={prod.product_link}>
-              <SingleProd
-                key={index}
-                id={index}
-                imgRes={prod.product_image_res[1]}
-                produkt={prod}
-              />
-            </a>
-          ))}
-        </StyledDiv>
+        {noProds.current ? (
+          <StyledDiv><h1>No Prods</h1></StyledDiv>
+        ) : (
+          <StyledDiv>
+            {allprods_display_sorted[prodPage].map((prod, index) => (
+              <a href={prod.product_link}>
+                <SingleProd
+                  key={index}
+                  id={index}
+                  imgRes={prod.product_image_res[1]}
+                  produkt={prod}
+                />
+              </a>
+            ))}
+          </StyledDiv>
+        )}
       </MainDiv>
     </div>
   );

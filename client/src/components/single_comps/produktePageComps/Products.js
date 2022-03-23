@@ -73,6 +73,12 @@ const NextPageIcons = styled.div`
 ////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////
 function Products({ allprods_display, pPage, setpPage }) {
+  const noProds = useRef(false);
+  if (allprods_display.length < 1) {
+    noProds.current = true;
+  } else {
+    noProds.current = false;
+  }
   return (
     <div>
       <AddDiv />
@@ -94,18 +100,22 @@ function Products({ allprods_display, pPage, setpPage }) {
         </NextPageIcons>
       </NextPage>
       <MainDiv>
-        <StyledDiv>
-          {allprods_display[pPage].map((prod, index) => (
-            <a href={prod.product_link}>
-              <SingleProd
-                key={index}
-                id={index}
-                imgRes={prod.product_image_res[1]}
-                produkt={prod}
-              />
-            </a>
-          ))}
-        </StyledDiv>
+        {noProds.current ? (
+          <StyledDiv>No Prods</StyledDiv>
+        ) : (
+          <StyledDiv>
+            {allprods_display[pPage].map((prod, index) => (
+              <a href={prod.product_link}>
+                <SingleProd
+                  key={index}
+                  id={index}
+                  imgRes={prod.product_image_res[1]}
+                  produkt={prod}
+                />
+              </a>
+            ))}
+          </StyledDiv>
+        )}
       </MainDiv>
     </div>
   );
