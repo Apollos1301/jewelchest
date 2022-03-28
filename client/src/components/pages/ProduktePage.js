@@ -6,6 +6,8 @@ import Products from "../single_comps/produktePageComps/Products";
 import MidCards from "../single_comps/produktePageComps/MidCards";
 import { useRef, useState, useEffect } from "react";
 
+import PulseLoader from "react-spinners/PulseLoader";
+
 const TopDiv = styled.div`
   width: 100%;
   height: 800px;
@@ -32,7 +34,7 @@ const FootDiv = styled.div`
   width: 100%;
   height: 300px;
 `;
-function ProduktePage({ allprods_display, deactProd, shopList }) {
+function ProduktePage({ allprods_display, deactProd, shopList, passProd }) {
   const [allprods, setAllProds] = useState(allprods_display);
   const [pageNumber, setPageNumber] = useState(0);
   const filterDeleteList = useRef();
@@ -45,6 +47,15 @@ function ProduktePage({ allprods_display, deactProd, shopList }) {
   const filterSetts = useRef([]);
   const filterlist = useRef([[filter, 999, "X"]]);
   const prodlist = useRef([allprods.flat()]);
+  ////////////////////////////////////////////////////////////////////////
+  const [loading, setLoader] = useState(false);
+
+  useEffect(() => {
+    setLoader(true);
+    setTimeout(() => {
+      setLoader(false);
+    }, 1500);
+  }, []);
   ////////////////////////////////////////////////////////////////
   useEffect(() => {
     filterDeleteList.current = [];
@@ -54,9 +65,16 @@ function ProduktePage({ allprods_display, deactProd, shopList }) {
       filterMaterial(allprods_display.flat()),
       filterFarbe(allprods_display.flat()),
     ]);
-    filterlist.current = [[filter, 999, "X"]];
+    let fil = [
+      filterKategorie(allprods_display.flat()),
+      filterMarke(allprods_display.flat()),
+      filterMaterial(allprods_display.flat()),
+      filterFarbe(allprods_display.flat()),
+    ];
+    filterlist.current = [[fil, 999, "X"]];
     prodlist.current = [allprods.flat()];
     setAllProds([...allprods_display]);
+    setPageNumber(0);
   }, [allprods_display]);
   ////////////////////////////////////////////////////////////////
   const newFilter = (filter, n, m, setter, prods) => {
@@ -71,7 +89,7 @@ function ProduktePage({ allprods_display, deactProd, shopList }) {
             filterDeleteList.current.push(item);
           }
         });
-        let size = 25;
+        let size = 55;
         let newProds = [];
         for (
           var i = 0;
@@ -91,7 +109,7 @@ function ProduktePage({ allprods_display, deactProd, shopList }) {
           }
         });
 
-        let size = 25;
+        let size = 55;
         let newProds = [];
         for (
           var i = 0;
@@ -223,10 +241,26 @@ function ProduktePage({ allprods_display, deactProd, shopList }) {
     return endarr;
   };
   //console.log(allprods);
-  return (
+  return loading ? (
+    <div
+      style={{
+        overflowY: "hidden",
+        width: "100vw",
+        height: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <PulseLoader color={"#ff75bf"} loading={loading} size={150} />
+    </div>
+  ) : (
     <div style={{ overflowY: "hidden" }}>
       <TopDiv>
-        <Navbar_produkte />
+        <Navbar_produkte
+          passProd={passProd}
+          allprods_display={allprods_display}
+        />
       </TopDiv>
       <MidDiv1>
         <SetProducts

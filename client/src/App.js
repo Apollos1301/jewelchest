@@ -4,6 +4,7 @@ import RatingPage from "./components/pages/RatingPage";
 import ShopsPage from "./components/pages/ShopsPage";
 import CouponPage from "./components/pages/CouponPage";
 import InfoPage from "./components/pages/InfoPage";
+import SearchedProd from "./components/pages/SearchedProd";
 //////////////////////////////////////////
 import AppHomePage from "./components/appV/appPages/AppHomePage";
 import AppProduktePage from "./components/appV/appPages/AppProduktePage";
@@ -20,6 +21,7 @@ import useWindowDimensions from "./components/hooks/useWindowDimensions";
 
 function App() {
   const { height, width } = useWindowDimensions();
+  const [passedProds, setPassedProds] = useState([]);
   const mobileV = useRef(false);
   var allprods_past = [];
   var allprods = [];
@@ -27,12 +29,20 @@ function App() {
   var christ = [];
   const prodMaker = () => {
     amazon_produkte.map((prod, index) => {
+      let p = prod.product_price.replace(/\./g, "");
+      p = p.replace(/\,/g, "");
+      if (p.length > 2) {
+        p =
+          p.substring(0, p.length - 2) +
+          "." +
+          p.substring(p.length - 2, p.length);
+      }
       let obj = {
         product_root: prod.product_root,
         product_link: prod.product_link,
         product_name: prod.product_name,
         product_keywords: prod.product_keywords,
-        product_price: prod.product_price,
+        product_price: p,
         product_image: prod.product_image,
         product_rating: prod.product_rating,
         product_image_res: prod.product_image_res,
@@ -47,12 +57,20 @@ function App() {
     });
 
     christ_produkte.map((prod, index) => {
+      let p = prod.product_price.replace(/\./g, "");
+      p = p.replace(/\,/g, "");
+      if (p.length > 2) {
+        p =
+          p.substring(0, p.length - 2) +
+          "." +
+          p.substring(p.length - 2, p.length);
+      }
       let obj = {
         product_root: prod.product_root,
         product_link: prod.product_link,
         product_name: prod.product_name,
         product_keywords: prod.product_keywords,
-        product_price: prod.product_price,
+        product_price: p,
         product_image: prod.product_image,
         product_rating: prod.product_rating,
         product_image_res: prod.product_image_res,
@@ -143,7 +161,18 @@ function App() {
         </Routes>
       ) : (
         <Routes>
-          <Route path="/" exact element={<HomePage />} />
+          <Route
+            path="/"
+            exact
+            element={
+              <HomePage
+                passProd={(prods) => {
+                  setPassedProds([...prods]);
+                }}
+                allprods_display={allprods_display}
+              />
+            }
+          />
           <Route
             path="/schmuck_produkte"
             exact
@@ -152,6 +181,9 @@ function App() {
                 allprods_display={allprods_display}
                 deactProd={deactivateProd}
                 shopList={product}
+                passProd={(prods) => {
+                  setPassedProds([...prods]);
+                }}
               />
             }
           />
@@ -163,16 +195,62 @@ function App() {
                 allprods_display={allprods_display}
                 deactProd={deactivateProd}
                 shopList={product}
+                passProd={(prods) => {
+                  setPassedProds([...prods]);
+                }}
               />
             }
           />
           <Route
             path="/all_shops"
             exact
-            element={<ShopsPage shopList={product} />}
+            element={
+              <ShopsPage
+                shopList={product}
+                allprods_display={allprods_display}
+                passProd={(prods) => {
+                  setPassedProds([...prods]);
+                }}
+              />
+            }
           />
-          <Route path="/coupons" exact element={<CouponPage />} />
-          <Route path="/info" exact element={<InfoPage />} />
+          <Route
+            path="/coupons"
+            exact
+            element={
+              <CouponPage
+                passProd={(prods) => {
+                  setPassedProds([...prods]);
+                }}
+                allprods_display={allprods_display}
+              />
+            }
+          />
+          <Route
+            path="/info"
+            exact
+            element={
+              <InfoPage
+                passProd={(prods) => {
+                  setPassedProds([...prods]);
+                }}
+                allprods_display={allprods_display}
+              />
+            }
+          />
+          <Route
+            path="/products/search"
+            exact
+            element={
+              <SearchedProd
+                allprods_display={allprods_display}
+                allProds={passedProds}
+                passProd={(prods) => {
+                  setPassedProds([...prods]);
+                }}
+              />
+            }
+          ></Route>
         </Routes>
       )}
     </Router>
@@ -189,10 +267,11 @@ function shuffle(d) {
     d[i] = d[j];
     d[j] = x;
   }
+
   var b;
   var c = [];
   var a = [];
-  var size = 25;
+  var size = 55;
   for (var i = 0; i < d.length; i += size) {
     a.push(d.slice(i, i + size));
   }

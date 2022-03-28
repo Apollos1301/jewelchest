@@ -108,11 +108,13 @@ function Products({ allprods_display }) {
       <AddDiv />
       <MainDiv>
         {noProds.current ? (
-          <StyledDiv><h1>No Prods</h1></StyledDiv>
+          <StyledDiv>
+            <h1>No Prods</h1>
+          </StyledDiv>
         ) : (
           <StyledDiv>
             {allprods_display_sorted[prodPage].map((prod, index) => (
-              <a href={prod.product_link}>
+              <a href={prod.product_link} style={{ textDecoration: "none" }}>
                 <SingleProd
                   key={index}
                   id={index}

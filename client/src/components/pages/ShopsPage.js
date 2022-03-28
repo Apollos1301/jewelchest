@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Navbar_shops from "../single_comps/shopsPageComps/Navbar_shops";
+
+import PulseLoader from "react-spinners/PulseLoader";
 
 const TopDiv = styled.div`
   width: 100%;
@@ -13,11 +15,32 @@ const MidDiv1 = styled.div`
   margin-top: 10px;
 `;
 
-function ShopsPage() {
-  return (
+function ShopsPage({ passProd, allprods_display }) {
+  const [loading, setLoader] = useState(false);
+
+  useEffect(() => {
+    setLoader(true);
+    setTimeout(() => {
+      setLoader(false);
+    }, 1500);
+  }, []);
+  return loading ? (
+    <div
+      style={{
+        overflowY: "hidden",
+        width: "100vw",
+        height: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <PulseLoader color={"#ff75bf"} loading={loading} size={150} />
+    </div>
+  ) : (
     <div style={{ overflowY: "hidden" }}>
       <TopDiv>
-        <Navbar_shops />
+        <Navbar_shops passProd={passProd} allprods_display={allprods_display} />
       </TopDiv>
       <MidDiv1></MidDiv1>
     </div>

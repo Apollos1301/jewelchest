@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Navbar from "../single_comps/homePageComps/Navbar_home";
 import Products from "../single_comps/homePageComps/Products";
@@ -6,6 +6,8 @@ import Menue_prods from "../single_comps/homePageComps/Menue_prods";
 import MidCards from "../single_comps/homePageComps/MidCards";
 import TextInfo from "../single_comps/homePageComps/TextInfo";
 import ContactCard from "../single_comps/homePageComps/ContactCard";
+
+import PulseLoader from "react-spinners/PulseLoader";
 
 const TopDiv = styled.div`
   width: 100%;
@@ -63,11 +65,23 @@ const FootDiv = styled.div`
   width: 100%;
   height: 300px;
 `;
-function Home() {
-  return (
+function Home({ passProd, allprods_display }) {
+  const [loading, setLoader] = useState(false);
+
+  useEffect(() => {
+    setLoader(true);
+    setTimeout(() => {
+      setLoader(false);
+    }, 1500);
+  }, []);
+  return loading ? (
+    <div style={{ overflowY: "hidden" , width:"100vw", height:"100vh" , display:"flex", justifyContent: "center", alignItems: "center"}}>
+      <PulseLoader color={"#ff75bf"} loading={loading} size={150} />
+    </div>
+  ) : (
     <div style={{ overflowY: "hidden" }}>
       <TopDiv>
-        <Navbar />
+        <Navbar passProd={passProd} allprods_display={allprods_display} />
       </TopDiv>
       <MidDiv1>
         <Menue_prods />

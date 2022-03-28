@@ -82,6 +82,8 @@ const FilterOptDiv = styled.div`
   height: 120px;
   border: 1px solid black;
   span {
+    font-weight: bold;
+    font-size: 20px;
     color: black;
     :hover {
       color: grey;
@@ -91,7 +93,6 @@ const FilterOptDiv = styled.div`
 `;
 const DeleteList = styled.div`
   background-color: #80808021;
-  border: 1px solid black;
   display: flex;
   gap: 15px;
   width: 90%;
@@ -110,7 +111,7 @@ const DeleteListItem = styled.div`
   h1 {
     font-size: 20px;
     text-align: center;
-    font-weight: 300;
+    font-weight: 700;
   }
 `;
 ////////////////////////////////////////////////////////////////
@@ -210,7 +211,7 @@ function SetProducts({
 
   //console.log(kategorieKeys);
   return (
-    <div>
+    <div style={{ fontFamily: "PlayFair", fontWeight: "bold" }}>
       <StyledDiv>
         <StyledList>
           <StyledListItems>
@@ -263,7 +264,9 @@ function SetProducts({
               </animated.span>
             </FilterTopic>
             <FilterOpt as={animated.div} style={showOpt[0]}>
-              <FilterOptDiv style={{ gap: "10px" }}>
+              <FilterOptDiv
+                style={{ height: "150px", width: "200px", gap: "10px" }}
+              >
                 {kategorieKeys.map((key, index) => {
                   let newKey = key[0].charAt(0).toUpperCase() + key[0].slice(1);
                   return (

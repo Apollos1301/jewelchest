@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Navbar_coupons from "../single_comps/couponsPageComps/Navbar_coupons";
+
+import PulseLoader from "react-spinners/PulseLoader";
 
 const TopDiv = styled.div`
   width: 100%;
@@ -13,11 +15,35 @@ const MidDiv1 = styled.div`
   margin-top: 10px;
 `;
 
-function CouponPage() {
-  return (
+function CouponPage({ passProd, allprods_display }) {
+  const [loading, setLoader] = useState(false);
+
+  useEffect(() => {
+    setLoader(true);
+    setTimeout(() => {
+      setLoader(false);
+    }, 1500);
+  }, []);
+  return loading ? (
+    <div
+      style={{
+        overflowY: "hidden",
+        width: "100vw",
+        height: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <PulseLoader color={"#ff75bf"} loading={loading} size={150} />
+    </div>
+  ) : (
     <div style={{ overflowY: "hidden" }}>
       <TopDiv>
-        <Navbar_coupons />
+        <Navbar_coupons
+          passProd={passProd}
+          allprods_display={allprods_display}
+        />
       </TopDiv>
       <MidDiv1></MidDiv1>
     </div>
