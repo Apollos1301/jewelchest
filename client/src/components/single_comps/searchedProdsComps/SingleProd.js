@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { useState, useRef, useEffect } from "react";
 import ReactDOM from "react-dom";
-import startIcon from "../../imgs/star.png";
+import starIcon from "../../imgs/star.png";
 
 const ProductDiv = styled.div`
   font-family: "PlayFair", sans-serif;
@@ -12,7 +12,7 @@ const ProductDiv = styled.div`
   width: 16vw;
   flex-direction: column;
   flex-wrap: wrap;
-  height: 340px;
+  height: 380px;
   border-bottom: 1px solid black;
   margin-top: 10px;
   align-items: flex-start;
@@ -98,7 +98,7 @@ function SingleProd({ id, imgRes, produkt, selected }) {
             }}
           >
             <img
-              src={startIcon}
+              src={starIcon}
               alt="starIcon"
               style={{ width: "100%", height: "100%" }}
             />

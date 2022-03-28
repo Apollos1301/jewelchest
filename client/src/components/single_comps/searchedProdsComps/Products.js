@@ -79,7 +79,6 @@ function Products({ allProds }) {
           editProds.push(prod);
         }
       });
-      editProds.unshift(allProds[1]);
       setProdsAll([...editProds]);
     }
   }, [allProds]);
@@ -93,56 +92,18 @@ function Products({ allProds }) {
     <div>
       <MainDiv>
         <StyledDiv>
-          {prodsAll.map((prod, index) => {
-            if (allProds[1] != null) {
-              if (index != 0) {
-                return (
-                  <a
-                    href={prod.product_link}
-                    style={{ textDecoration: "none" }}
-                  >
-                    <SingleProd
-                      key={index}
-                      id={index}
-                      imgRes={prod.product_image_res[1]}
-                      produkt={prod}
-                      imgSize={imgSize(prod.product_image)}
-                      selected={false}
-                    />
-                  </a>
-                );
-              } else {
-                return (
-                  <a
-                    href={prod.product_link}
-                    style={{ textDecoration: "none" }}
-                  >
-                    <SingleProd
-                      key={index}
-                      id={index}
-                      imgRes={prod.product_image_res[1]}
-                      produkt={prod}
-                      imgSize={imgSize(prod.product_image)}
-                      selected={true}
-                    />
-                  </a>
-                );
-              }
-            } else {
-              return (
-                <a href={prod.product_link} style={{ textDecoration: "none" }}>
-                  <SingleProd
-                    key={index}
-                    id={index}
-                    imgRes={prod.product_image_res[1]}
-                    produkt={prod}
-                    imgSize={imgSize(prod.product_image)}
-                    selected={false}
-                  />
-                </a>
-              );
-            }
-          })}
+          {prodsAll.map((prod, index) => (
+            <a href={prod.product_link} style={{ textDecoration: "none" }}>
+              <SingleProd
+                key={index}
+                id={index}
+                imgRes={prod.product_image_res[1]}
+                produkt={prod}
+                imgSize={imgSize(prod.product_image)}
+                selected={false}
+              />
+            </a>
+          ))}
         </StyledDiv>
       </MainDiv>
     </div>

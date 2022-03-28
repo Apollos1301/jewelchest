@@ -12,7 +12,7 @@ const ProductDiv = styled.div`
   width: 16vw;
   flex-direction: column;
   flex-wrap: wrap;
-  height: 340px;
+  height: 380px;
   border-bottom: 0.1px solid black;
   margin-top: 10px;
   align-items: flex-start;

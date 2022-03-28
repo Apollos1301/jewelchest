@@ -58,7 +58,7 @@ const NavListLeft = styled.ul`
   list-style-type: none;
 `;
 const StyledLink = styled(Link)`
-  font-size: 20px;
+  font-size: 1.2vw;
   font-family: "PlayFair", sans-serif;
   color: black;
   padding-left: 10px;
@@ -88,10 +88,8 @@ const NavListRightSearchBar = styled.div`
   background-color: #fedde6;
 `;
 const Searchimg = styled.img`
-  position: absolute;
-  right: 170px;
-  width: 5.5%;
-  height: 90%;
+  width: 35px;
+  height: 35px;
   opacity: 0.6;
   :hover {
     opacity: 1;
@@ -158,9 +156,10 @@ function Navbar_shops({ passProd, allprods_display }) {
   searchedProds.current = prodSearcher();
   const [searchAnim, setSearchAnim] = useSpring(() => ({
     position: "absolute",
+    display: "flex",
     top: "145px",
-    left: "1200px",
-    width: "700px",
+    left: "63vw",
+    width: "7vw",
     height: "40px",
     opacity: "1",
     transform: "scale(1)",
@@ -256,7 +255,7 @@ function Navbar_shops({ passProd, allprods_display }) {
             ref={searchInput}
             value={inputText}
             style={{
-              position: "absolute",
+              width: "25vw",
               height: "90%",
               resize: "none",
               backgroundColor: "#ffffff99",
@@ -296,7 +295,6 @@ function Navbar_shops({ passProd, allprods_display }) {
             top: "40vh",
             border: "1px solid black",
             zIndex: 99,
-            paddingLeft: "250px",
             color: "white",
             backgroundColor: "#febecfed",
           }}
@@ -306,7 +304,7 @@ function Navbar_shops({ passProd, allprods_display }) {
               width: "90%",
               overflowY: "Scroll",
               maxHeight: "540px",
-              paddingLeft: "40px",
+              paddingleft: "20vw",
             }}
           >
             <div
@@ -314,10 +312,10 @@ function Navbar_shops({ passProd, allprods_display }) {
                 width: "60%",
                 height: "120px",
                 border: "1px solid black",
-                marginLeft: "40px",
+                marginLeft: "20vw",
                 marginTop: "10px",
-                paddingLeft: "40px",
                 paddingTop: "40px",
+                textAlign: "center",
               }}
             >
               <SearchedLink
@@ -328,8 +326,11 @@ function Navbar_shops({ passProd, allprods_display }) {
                   searchSetter.current = false;
                 }}
               >
-                <h1>
-                  {" > > "}Alle Produkte mit {inputText}
+                <h1 style={{ fontSize: "2.5vw", fontWeight: "100" }}>
+                  {" > > "}Alle Produkte mit{" "}
+                  <span style={{ fontSize: "3.5vw", fontWeight: "700" }}>
+                    "{inputText}"
+                  </span>
                 </h1>
               </SearchedLink>
             </div>
@@ -338,9 +339,10 @@ function Navbar_shops({ passProd, allprods_display }) {
                 <div
                   style={{
                     display: "flex",
-                    width: "60%",
+                    width: "100%",
                     justifyContent: "center",
                     alignItems: "center",
+                    paddingleft: "20vw",
                   }}
                 >
                   <SearchedLink
@@ -444,21 +446,21 @@ function Navbar_shops({ passProd, allprods_display }) {
                 justifyItems: "flex-end",
                 alignItems: "center",
                 paddingRight: "10px",
-                gap: "15px",
+                gap: ".8vw",
               }}
             >
               <img
                 src={likeHeart}
                 alt="cart"
-                width="40px"
-                height="40px"
+                width="35vw"
+                height="35vw"
                 style={{ opacity: 0.7 }}
               />
               <img
                 src={contactUs}
                 alt="contactUs"
-                width="40px"
-                height="40px"
+                width="35vw"
+                height="35vw"
                 style={{ opacity: 0.7, zIndex: 0 }}
               />
             </div>

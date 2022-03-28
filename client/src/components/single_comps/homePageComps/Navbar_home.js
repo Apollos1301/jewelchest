@@ -295,7 +295,6 @@ function Navbar_home({ passProd, allprods_display }) {
             top: "40vh",
             border: "1px solid black",
             zIndex: 99,
-            paddingLeft: "250px",
             color: "white",
             backgroundColor: "#febecfed",
           }}
@@ -305,7 +304,7 @@ function Navbar_home({ passProd, allprods_display }) {
               width: "90%",
               overflowY: "Scroll",
               maxHeight: "540px",
-              paddingLeft: "40px",
+              paddingleft: "20vw",
             }}
           >
             <div
@@ -313,10 +312,10 @@ function Navbar_home({ passProd, allprods_display }) {
                 width: "60%",
                 height: "120px",
                 border: "1px solid black",
-                marginLeft: "40px",
+                marginLeft: "20vw",
                 marginTop: "10px",
-                paddingLeft: "40px",
                 paddingTop: "40px",
+                textAlign: "center",
               }}
             >
               <SearchedLink
@@ -327,8 +326,11 @@ function Navbar_home({ passProd, allprods_display }) {
                   searchSetter.current = false;
                 }}
               >
-                <h1>
-                  {" > > "}Alle Produkte mit {inputText}
+                <h1 style={{ fontSize: "2.5vw", fontWeight: "100" }}>
+                  {" > > "}Alle Produkte mit{" "}
+                  <span style={{ fontSize: "3.5vw", fontWeight: "700" }}>
+                    "{inputText}"
+                  </span>
                 </h1>
               </SearchedLink>
             </div>
@@ -337,9 +339,10 @@ function Navbar_home({ passProd, allprods_display }) {
                 <div
                   style={{
                     display: "flex",
-                    width: "60%",
+                    width: "100%",
                     justifyContent: "center",
                     alignItems: "center",
+                    paddingleft: "20vw",
                   }}
                 >
                   <SearchedLink
