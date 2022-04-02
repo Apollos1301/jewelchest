@@ -55,6 +55,11 @@ const ProductInfo = styled.div`
 `;
 
 function SearchedProd({ allProds, passProd, allprods_display }) {
+  
+  const [listUpdater, setListUpdater] = useState();
+  const [likeList, setLikeList] = useState();
+  const [prods, setProds] = useState(allProds);
+
   const [loading, setLoader] = useState(false);
 
   useEffect(() => {
@@ -63,11 +68,6 @@ function SearchedProd({ allProds, passProd, allprods_display }) {
       setLoader(false);
     }, 1500);
   }, []);
-
-  const [prods, setProds] = useState(allProds);
-  useEffect(() => {
-    setProds([...allProds]);
-  }, [allProds]);
   return loading ? (
     <div
       style={{
@@ -79,7 +79,7 @@ function SearchedProd({ allProds, passProd, allprods_display }) {
         alignItems: "center",
       }}
     >
-      <PulseLoader color={"#ff75bf"} loading={loading} size={150} />
+      <PulseLoader color={"#b5b5b5"} loading={loading} size={50} />
     </div>
   ) : (
     <div style={{ overflowY: "hidden", fontFamily: "PlayFair, sans-serif" }}>
@@ -87,6 +87,13 @@ function SearchedProd({ allProds, passProd, allprods_display }) {
         <Navbar_searched
           passProd={passProd}
           allprods_display={allprods_display}
+          likeList={likeList}
+          setList={(newList) => {
+            setLikeList([...newList]);
+          }}
+          setListUpdater={(newUpdate) => {
+            setListUpdater([...newUpdate]);
+          }}
         />
       </TopDiv>
       {allProds.length > 1 ? (
@@ -122,8 +129,8 @@ function SearchedProd({ allProds, passProd, allprods_display }) {
                 alignItems: "flex-start",
                 width: "100%",
                 height: "600px",
-                  border: "1px solid black",
-                marginTop: "100px"
+                border: "1px solid black",
+                marginTop: "100px",
               }}
             >
               <a
@@ -197,8 +204,8 @@ function SearchedProd({ allProds, passProd, allprods_display }) {
                               ? "hidden"
                               : allProds[1].product_rating == ""
                               ? "hidden"
-                                  : "visible",
-                          marginTop: "5px"
+                              : "visible",
+                          marginTop: "5px",
                         }}
                       >
                         <img
@@ -215,7 +222,13 @@ function SearchedProd({ allProds, passProd, allprods_display }) {
           ) : (
             ""
           )}
-          <Products allProds={allProds} />
+          <Products
+            allProds={allProds}
+            likeupdate={listUpdater}
+            setLikes={(list) => {
+              setLikeList([...list]);
+            }}
+          />
         </MidDiv1>
       ) : (
         <MidDiv1></MidDiv1>

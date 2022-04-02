@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 import { animated, useSpring, config } from "react-spring";
 import { easeSinInOut, easeSinIn, easeExpIn } from "d3-ease";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
+
+import LikeBar from "./LikeBar";
 ////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////
@@ -17,7 +19,7 @@ const NavDiv = styled.div`
   align-items: left;
   flex-direction: column;
   width: 100%;
-
+  z-index: 90;
   margin-top: 20px;
   border-top: 15px outset #e5e0e2;
 `;
@@ -97,7 +99,7 @@ const Searchimg = styled.img`
 `;
 const NavlistRightIcons = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   width: 16%;
   height: 58px;
   background-color: #fedde6;
@@ -118,7 +120,14 @@ const SearchedLink = styled(Link)`
 ////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////
 
-function Navbar_rating({ passProd, allprods_display }) {
+function Navbar_rating({
+  passProd,
+  allprods_display,
+  likeList,
+  setList,
+  setListUpdater,
+}) {
+  const [setOn, setSetOn] = useState(false);
   const searchSetter = useRef(false);
   const searchedProds = useRef();
   //console.log(searchedProds.current);
@@ -169,6 +178,14 @@ function Navbar_rating({ passProd, allprods_display }) {
   const searchInput = useRef();
   const searchInputDiv = useRef();
   const [navShow, setNavShow] = useState(true);
+  const [heartStyle, setHeartStyle] = useSpring(() => ({
+    opacity: 0.7,
+    cursor: "pointer",
+    width: "2vw",
+    height: "2vw",
+    zIndex: 90,
+    transform: "scale(1)",
+  }));
   const [style, setStyle] = useSpring(() => ({
     opacity: 1,
     y: 0,
@@ -443,30 +460,52 @@ function Navbar_rating({ passProd, allprods_display }) {
             <div
               style={{
                 display: "flex",
-                justifyItems: "flex-end",
+                justifyItems: "center",
                 alignItems: "center",
                 paddingRight: "10px",
                 gap: ".8vw",
               }}
             >
-              <img
+              <animated.img
                 src={likeHeart}
                 alt="cart"
-                width="35vw"
-                height="35vw"
-                style={{ opacity: 0.7 }}
+                style={heartStyle}
+                onClick={() => {
+                  setSetOn(true);
+                }}
+                onMouseOver={() => {
+                  setHeartStyle.stop();
+                  setHeartStyle.start({ transform: "scale(1.3)" });
+                }}
+                onMouseOut={() => {
+                  setHeartStyle.stop();
+                  setHeartStyle.start({ transform: "scale(1)" });
+                }}
               />
-              <img
+              {/*<img
                 src={contactUs}
                 alt="contactUs"
-                width="35vw"
-                height="35vw"
-                style={{ opacity: 0.7, zIndex: 0 }}
-              />
+                style={{
+                  opacity: 0.7,
+                  cursor: "pointer",
+                  width: "2vw",
+                  height: "2vw",
+                  zIndex: 90,
+                }}
+              />*/}
             </div>
           </NavlistRightIcons>
         </NavListRight>
       </NavList>
+      <LikeBar
+        setOn={setOn}
+        setSideLike={() => {
+          setSetOn(false);
+        }}
+        likeList={likeList}
+        setList={setList}
+        setListUpdater={setListUpdater}
+      />
     </NavDiv>
   );
 }

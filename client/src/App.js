@@ -27,6 +27,7 @@ function App() {
   var allprods = [];
   var amazon = [];
   var christ = [];
+
   const prodMaker = () => {
     amazon_produkte.map((prod, index) => {
       let p = prod.product_price.replace(/\./g, "");
@@ -52,6 +53,7 @@ function App() {
           .split(";")[0]
           .replace("-", " "),
         product_farbe: prod.product_farbe,
+        product_Key: ["amazon", index, false],
       };
       amazon.push(obj);
     });
@@ -80,6 +82,7 @@ function App() {
           .split(";")[0]
           .replace("-", " "),
         product_farbe: prod.product_farbe,
+        product_Key: ["christ", index, false],
       };
       christ.push(obj);
     });
@@ -107,8 +110,12 @@ function App() {
   });
 
   allprods = allprods_past.flat();
-
-  const allprods_display = shuffle(allprods);
+  var [allprods_display, setAllprods_display] = useState([
+    ...shuffle(allprods),
+  ]);
+  useEffect(() => {
+    setAllprods_display([...shuffle(allprods)]);
+  }, [product]);
 
   function deactivateProd(deactId) {
     var newObj = [...product];
@@ -119,6 +126,35 @@ function App() {
     });
     setProduct(newObj);
   }
+
+  const storageCheck = () => {
+    let storage = JSON.parse(localStorage.getItem("likes"));
+    let newStorageitem = [];
+    if (storage != null && storage.length > 0) {
+      storage.map((storageItem, indexS) => {
+        allprods.map((prod, ind) => {
+          if (storageItem[2].product_link == prod.product_link) {
+            newStorageitem.push([
+              prod.product_Key[0],
+              prod.product_Key[1],
+              prod,
+            ]);
+            //console.log(prod.product_link);
+          } else {
+            //console.log("not same");
+          }
+        });
+      });
+    } else {
+      //console.log("nothing");
+    }
+    localStorage.setItem("likes", JSON.stringify(newStorageitem));
+    //console.log(newStorageitem);
+  };
+
+  useEffect(() => {
+    storageCheck();
+  }, []);
   if (width <= 1325) {
     mobileV.current = true;
   } else {
@@ -268,6 +304,11 @@ function shuffle(d) {
     d[j] = x;
   }
 
+  var a = packer(d);
+
+  return a;
+}
+function packer(d) {
   var b;
   var c = [];
   var a = [];

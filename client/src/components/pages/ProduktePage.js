@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Navbar_produkte from "../single_comps/produktePageComps/Navbar_produkte";
-import SearchBar from "../single_comps/produktePageComps/SearchBar";
+
 import SetProducts from "../single_comps/produktePageComps/SetProducts";
 import Products from "../single_comps/produktePageComps/Products";
 import MidCards from "../single_comps/produktePageComps/MidCards";
@@ -35,8 +35,11 @@ const FootDiv = styled.div`
   height: 300px;
 `;
 function ProduktePage({ allprods_display, deactProd, shopList, passProd }) {
+  const [listUpdater, setListUpdater] = useState();
+  const [likeList, setLikeList] = useState();
   const [allprods, setAllProds] = useState(allprods_display);
-  const [pageNumber, setPageNumber] = useState(0);
+  const pageRef = useRef(0);
+  const [pageNumber, setPageNumber] = useState(pageRef.current);
   const filterDeleteList = useRef();
   const [filter, setFilter] = useState([
     filterKategorie(allprods.flat()),
@@ -51,6 +54,14 @@ function ProduktePage({ allprods_display, deactProd, shopList, passProd }) {
   const [loading, setLoader] = useState(false);
 
   useEffect(() => {
+    let likelist = JSON.parse(localStorage.getItem("likes"));
+    let newlikeList = [];
+    if (likelist != null) {
+      likelist.map((prod, index) => {
+        newlikeList.push(prod[2]);
+      });
+    }
+    setLikeList([...newlikeList]);
     setLoader(true);
     setTimeout(() => {
       setLoader(false);
@@ -240,6 +251,7 @@ function ProduktePage({ allprods_display, deactProd, shopList, passProd }) {
     //console.log(prodlist.current);
     return endarr;
   };
+
   //console.log(allprods);
   return loading ? (
     <div
@@ -252,7 +264,7 @@ function ProduktePage({ allprods_display, deactProd, shopList, passProd }) {
         alignItems: "center",
       }}
     >
-      <PulseLoader color={"#ff75bf"} loading={loading} size={150} />
+      <PulseLoader color={"#b5b5b5"} loading={loading} size={50} />
     </div>
   ) : (
     <div style={{ overflowY: "hidden" }}>
@@ -260,6 +272,13 @@ function ProduktePage({ allprods_display, deactProd, shopList, passProd }) {
         <Navbar_produkte
           passProd={passProd}
           allprods_display={allprods_display}
+          likeList={likeList}
+          setList={(newList) => {
+            setLikeList([...newList]);
+          }}
+          setListUpdater={(newUpdate) => {
+            setListUpdater([...newUpdate]);
+          }}
         />
       </TopDiv>
       <MidDiv1>
@@ -278,6 +297,12 @@ function ProduktePage({ allprods_display, deactProd, shopList, passProd }) {
           pPage={pageNumber}
           setpPage={(number) => {
             setPageNumber(number);
+            pageRef.current = number;
+          }}
+          filterlist={filterlist.current}
+          likeupdate={listUpdater}
+          setLikes={(list) => {
+            setLikeList([...list]);
           }}
         />
       </MidDiv1>

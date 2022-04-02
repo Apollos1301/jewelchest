@@ -127,6 +127,9 @@ function SetProducts({
 }) {
   const [dropDown, setDropDown] = useSprings(4, (index) => ({
     transform: "rotate(0deg)",
+    width: "12px",
+    height: "10px",
+    marginBottom: "5px",
   }));
   const [showOpt, setShowOpt] = useSprings(4, (index) => ({
     display: "none",
@@ -259,9 +262,13 @@ function SetProducts({
           >
             <FilterTopic>
               <span>Kategorie</span>
-              <animated.span style={dropDown[0]}>
-                <img src={dropDownImg} alt="" />
-              </animated.span>
+              <animated.div style={dropDown[0]}>
+                <img
+                  src={dropDownImg}
+                  alt=""
+                  style={{ width: "100%", height: "100%" }}
+                />
+              </animated.div>
             </FilterTopic>
             <FilterOpt as={animated.div} style={showOpt[0]}>
               <FilterOptDiv
@@ -308,9 +315,9 @@ function SetProducts({
           >
             <FilterTopic>
               <span>Marken</span>
-              <animated.span style={dropDown[1]}>
+              <animated.div style={dropDown[1]}>
                 <img src={dropDownImg} alt="" />
-              </animated.span>
+              </animated.div>
             </FilterTopic>
             <FilterOpt as={animated.div} style={showOpt[1]}>
               <FilterOptDiv
@@ -357,9 +364,9 @@ function SetProducts({
           >
             <FilterTopic>
               <span>Material</span>
-              <animated.span style={dropDown[2]}>
+              <animated.div style={dropDown[2]}>
                 <img src={dropDownImg} alt="" />
-              </animated.span>
+              </animated.div>
             </FilterTopic>
             <FilterOpt as={animated.div} style={showOpt[2]}>
               <FilterOptDiv
@@ -406,9 +413,9 @@ function SetProducts({
           >
             <FilterTopic>
               <span>Farben</span>
-              <animated.span style={dropDown[3]}>
+              <animated.div style={dropDown[3]}>
                 <img src={dropDownImg} alt="" />
-              </animated.span>
+              </animated.div>
             </FilterTopic>
             <FilterOpt as={animated.div} style={showOpt[3]}>
               <FilterOptDiv

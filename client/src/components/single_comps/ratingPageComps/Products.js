@@ -71,38 +71,119 @@ const NextPageIcons = styled.div`
 ////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////
-function Products({ allprods_display }) {
-  const [prodPage, setProdPage] = useState(0);
+function Products({ allprods_display, setLikes, likeupdate }) {
+  const likeSave = useRef(JSON.parse(localStorage.getItem("likes")));
+  const noProds = useRef(false);
+  const [allProds, setAllProds] = useState(allprods_display);
+  const packer = (prods) => {
+    let size = 55;
+    let newProds = [];
+    for (var i = 0; i < prods.length; i += size) {
+      newProds.push(prods.slice(i, i + size));
+    }
+    return newProds;
+  };
 
-  var allprods_display_ = allprods_display;
-
-  allprods_display_ = allprods_display_.flat();
-  //console.log(allprods_display_);
-  const allprods_display_sorted_ = [];
-  const ratingMaker = () => {
-    allprods_display_.map((obj, index) => {
+  const ratingMaker = (prods) => {
+    let allprods_display_sorted = [];
+    prods.map((obj, index) => {
       if (obj.product_rating != null) {
-        allprods_display_sorted_.push(obj);
+        allprods_display_sorted.push(obj);
       }
     });
-    allprods_display_sorted_.sort((a, b) =>
+    allprods_display_sorted.sort((a, b) =>
       a.product_rating < b.product_rating
         ? 1
         : b.product_rating < a.product_rating
         ? -1
         : 0
     );
-    return packer(allprods_display_sorted_);
+    return setAllProds([...packer(allprods_display_sorted)]);
   };
-  var allprods_display_sorted = [];
-  const noProds = useRef(false);
-  if (allprods_display.length < 1) {
+
+  useEffect(() => {
+    likesChecker();
+  }, []);
+  useEffect(() => {
+    likesChecker();
+  }, [allprods_display]);
+  useEffect(() => {
+    likesChecker();
+  }, [likeupdate]);
+  const addToFavs = (item) => {
+    let newList = [];
+    let check = false;
+    let allLikes = JSON.parse(localStorage.getItem("likes"));
+    if (allLikes != null) {
+      if (allLikes.length < 1) {
+        newList.push(item);
+      } else {
+        allLikes.map((likes, index) => {
+          if (likes[0] == item[0] && likes[1] == item[1]) {
+            check = true;
+          } else {
+            newList.push(likes);
+          }
+        });
+        if (!check) {
+          newList.push(item);
+        }
+      }
+    }
+    if (allLikes == null) {
+      newList.push(item);
+    }
+    localStorage.setItem("likes", JSON.stringify(newList));
+    likeSave.current = JSON.parse(localStorage.getItem("likes"));
+    //console.log(JSON.parse(localStorage.getItem("likes")));
+    likesChecker();
+  };
+
+  const stanProds = useRef([]);
+  const likesChecker = () => {
+    //console.log("checker");
+
+    if (localStorage.getItem("likes") != null) {
+      let likeList = JSON.parse(localStorage.getItem("likes"));
+      likeSave.current = [...likeList];
+      let check = false;
+      let aProds = allprods_display.flat();
+
+      let likelikes = [];
+      JSON.parse(localStorage.getItem("likes")).map((p, ind) => {
+        likelikes.push(p[2]);
+      });
+      //console.log(likeList);
+      aProds.map((prod, index) => {
+        check = false;
+        likeList.map((like, ind) => {
+          if (prod.product_Key[0] == like[0]) {
+            if (prod.product_Key[1] == like[1]) {
+              prod.product_Key[2] = true;
+              //console.log(prod);
+              check = true;
+
+              return;
+            }
+          }
+        });
+        if (!check) {
+          prod.product_Key[2] = false;
+        }
+      });
+      //setAllProds([...packer(aProds)]);
+      stanProds.current = [...aProds];
+      //console.log(likelikes);
+      ratingMaker(aProds);
+      setLikes(likelikes);
+    }
+  };
+
+  if (allProds.length < 1) {
     noProds.current = true;
   } else {
-    allprods_display_sorted = ratingMaker();
     noProds.current = false;
   }
-
   return (
     <div>
       <AddDiv />
@@ -113,15 +194,14 @@ function Products({ allprods_display }) {
           </StyledDiv>
         ) : (
           <StyledDiv>
-            {allprods_display_sorted[prodPage].map((prod, index) => (
-              <a href={prod.product_link} style={{ textDecoration: "none" }}>
-                <SingleProd
-                  key={index}
-                  id={index}
-                  imgRes={prod.product_image_res[1]}
-                  produkt={prod}
-                />
-              </a>
+            {allProds[0].map((prod, index) => (
+              <SingleProd
+                key={index}
+                id={index}
+                imgRes={prod.product_image_res[1]}
+                produkt={prod}
+                addToFavs={addToFavs}
+              />
             ))}
           </StyledDiv>
         )}

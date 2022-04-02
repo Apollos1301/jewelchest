@@ -65,22 +65,11 @@ const ProductImage = styled.div`
 ////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////
-function Products({ allProds }) {
-  const [prodsAll, setProdsAll] = useState(allProds[0]);
-  useEffect(() => {
-    setProdsAll([...allProds[0]]);
-  }, [allProds]);
+function Products({ allProds, setLikes, likeupdate }) {
   //console.log(allProds[1]);
   useEffect(() => {
-    if (allProds[1] != null) {
-      let editProds = [];
-      prodsAll.map((prod, index) => {
-        if (allProds[1].product_link != prod.product_link) {
-          editProds.push(prod);
-        }
-      });
-      setProdsAll([...editProds]);
-    }
+    setProdsAll([...allProds[0]]);
+    console.log(allProds[0]);
   }, [allProds]);
   //console.log(allprods);
   //console.log(allprods[2].product_image);
@@ -88,49 +77,112 @@ function Products({ allProds }) {
   //const allprods_display = useRef(shuffle(allprods));
 
   //console.log(shuffle(allprods));
+  const likeSave = useRef(JSON.parse(localStorage.getItem("likes")));
+  const noProds = useRef(false);
+  const [prodsAll, setProdsAll] = useState(allProds[0]);
+  const packer = (prods) => {
+    let size = 55;
+    let newProds = [];
+    for (var i = 0; i < prods.length; i += size) {
+      newProds.push(prods.slice(i, i + size));
+    }
+    return newProds;
+  };
+
+  
+  useEffect(() => {
+    likesChecker();
+  }, []);
+  useEffect(() => {
+    likesChecker();
+  }, [allProds[0]]);
+  useEffect(() => {
+    likesChecker();
+  }, [likeupdate]);
+  const addToFavs = (item) => {
+    let newList = [];
+    let check = false;
+    let allLikes = JSON.parse(localStorage.getItem("likes"));
+    if (allLikes != null) {
+      if (allLikes.length < 1) {
+        newList.push(item);
+      } else {
+        allLikes.map((likes, index) => {
+          if (likes[0] == item[0] && likes[1] == item[1]) {
+            check = true;
+          } else {
+            newList.push(likes);
+          }
+        });
+        if (!check) {
+          newList.push(item);
+        }
+      }
+    }
+    if (allLikes == null) {
+      newList.push(item);
+    }
+    localStorage.setItem("likes", JSON.stringify(newList));
+    likeSave.current = JSON.parse(localStorage.getItem("likes"));
+    //console.log(JSON.parse(localStorage.getItem("likes")));
+    likesChecker();
+  };
+
+  const stanProds = useRef([]);
+  const likesChecker = () => {
+    //console.log("checker");
+
+    if (localStorage.getItem("likes") != null) {
+      let likeList = JSON.parse(localStorage.getItem("likes"));
+      likeSave.current = [...likeList];
+      let check = false;
+      let aProds = allProds[0].flat();
+
+      let likelikes = [];
+      JSON.parse(localStorage.getItem("likes")).map((p, ind) => {
+        likelikes.push(p[2]);
+      });
+      //console.log(likeList);
+      aProds.map((prod, index) => {
+        check = false;
+        likeList.map((like, ind) => {
+          if (prod.product_Key[0] == like[0]) {
+            if (prod.product_Key[1] == like[1]) {
+              prod.product_Key[2] = true;
+              //console.log(prod);
+              check = true;
+
+              return;
+            }
+          }
+        });
+        if (!check) {
+          prod.product_Key[2] = false;
+        }
+      });
+      //setAllProds([...packer(aProds)]);
+      stanProds.current = [...aProds];
+      //console.log(likelikes);
+      setLikes(likelikes);
+    }
+  };
   return (
     <div>
       <MainDiv>
         <StyledDiv>
-          {prodsAll.map((prod, index) => (
-            <a href={prod.product_link} style={{ textDecoration: "none" }}>
+            {prodsAll.map((prod, index) => (
               <SingleProd
                 key={index}
                 id={index}
                 imgRes={prod.product_image_res[1]}
                 produkt={prod}
-                imgSize={imgSize(prod.product_image)}
-                selected={false}
+                addToFavs={addToFavs}
               />
-            </a>
-          ))}
-        </StyledDiv>
+            ))}
+          </StyledDiv>
       </MainDiv>
     </div>
   );
 }
 
 export default Products;
-
-function shuffle(d) {
-  var j, x, i;
-  for (i = d.length - 1; i > 0; i--) {
-    j = Math.floor(Math.random() * (i + 1));
-    x = d[i];
-    d[i] = d[j];
-    d[j] = x;
-  }
-  var b;
-  var c = [];
-  var a = [];
-  for (b = 0; b <= d.length; b++) {
-    c.push(d[b]);
-    if (c.length == 16) {
-      a.push(c);
-      c = [];
-    }
-  }
-  return a;
-}
-
-function imgSize() {}

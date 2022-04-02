@@ -17,6 +17,8 @@ const MidDiv1 = styled.div`
   margin-top: 10px;
 `;
 function RatingPage({ allprods_display, deactProd, shopList, passProd }) {
+  const [listUpdater, setListUpdater] = useState();
+  const [likeList, setLikeList] = useState();
   const [loading, setLoader] = useState(false);
 
   useEffect(() => {
@@ -36,7 +38,7 @@ function RatingPage({ allprods_display, deactProd, shopList, passProd }) {
         alignItems: "center",
       }}
     >
-      <PulseLoader color={"#ff75bf"} loading={loading} size={150} />
+      <PulseLoader color={"#b5b5b5"} loading={loading} size={50} />
     </div>
   ) : (
     <div style={{ overflowY: "hidden" }}>
@@ -44,11 +46,24 @@ function RatingPage({ allprods_display, deactProd, shopList, passProd }) {
         <Navbar_rating
           passProd={passProd}
           allprods_display={allprods_display}
+          likeList={likeList}
+          setList={(newList) => {
+            setLikeList([...newList]);
+          }}
+          setListUpdater={(newUpdate) => {
+            setListUpdater([...newUpdate]);
+          }}
         />
       </TopDiv>
       <MidDiv1>
         <SetProducts deactProd={deactProd} shopList={shopList} />
-        <Products allprods_display={allprods_display} />
+        <Products
+          allprods_display={allprods_display}
+          likeupdate={listUpdater}
+          setLikes={(list) => {
+            setLikeList([...list]);
+          }}
+        />
       </MidDiv1>
     </div>
   );

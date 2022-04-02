@@ -68,7 +68,6 @@ const ProductImage = styled.div`
 ////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////
 function Products() {
-  const [prodPage, setProdPage] = useState(0);
   var allprods_past = [];
   var allprods = [];
   allprods = allprods_past.concat(amazon_produkte, christ_produkte);
@@ -83,14 +82,13 @@ function Products() {
       <MainDiv>
         <AddDiv></AddDiv>
         <StyledDiv>
-          {allprods_display.current[prodPage].map((prod, index) => (
+          {allprods_display.current[0].map((prod, index) => (
             <a href={prod.product_link} style={{ textDecoration: "none" }}>
               <SingleProd
                 key={index}
                 id={index}
                 imgRes={prod.product_image_res[1]}
                 produkt={prod}
-                imgSize={imgSize(prod.product_image)}
               />
             </a>
           ))}
@@ -110,17 +108,18 @@ function shuffle(d) {
     d[i] = d[j];
     d[j] = x;
   }
+
+  var a = packer(d);
+
+  return a;
+}
+function packer(d) {
   var b;
   var c = [];
   var a = [];
-  for (b = 0; b <= d.length; b++) {
-    c.push(d[b]);
-    if (c.length == 16) {
-      a.push(c);
-      c = [];
-    }
+  var size = 16;
+  for (var i = 0; i < d.length; i += size) {
+    a.push(d.slice(i, i + size));
   }
   return a;
 }
-
-function imgSize() {}

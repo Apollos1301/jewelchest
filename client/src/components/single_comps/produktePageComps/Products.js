@@ -119,16 +119,12 @@ const SortDropdown = styled.div`
 ////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////
-function Products({ allprods_display, pPage, setpPage }) {
+function Products({ allprods_display, pPage, setpPage, setLikes, likeupdate }) {
+  const sortieren = useRef(0);
+  const likeSave = useRef(JSON.parse(localStorage.getItem("likes")));
   const sortTurn = useRef(false);
   const noProds = useRef(false);
-  var allProds = allprods_display;
-  const [sortieren, setSortieren] = useState(0);
-  if (allprods_display.length < 1) {
-    noProds.current = true;
-  } else {
-    noProds.current = false;
-  }
+  const [allProds, setAllProds] = useState(allprods_display);
   const [dropDownImg, setDropDownImg] = useSpring(() => ({
     transform: "rotate(180deg)",
   }));
@@ -146,28 +142,113 @@ function Products({ allprods_display, pPage, setpPage }) {
     }
     return newProds;
   };
-  const sortCheck = () => {
-    let flatprods = allprods_display.flat();
-    switch (sortieren) {
+  const sortCheck = (sort, allProducts) => {
+    let flatprods = allProducts.flat();
+    switch (sort) {
       case 0:
-        allProds = allprods_display;
+        setAllProds(packer(flatprods));
         break;
       case 1:
         flatprods.sort(function (a, b) {
           return a.product_price - b.product_price;
         });
-        allProds = packer(flatprods);
+        setAllProds(packer(flatprods));
         break;
       case 2:
         flatprods.sort(function (a, b) {
           return b.product_price - a.product_price;
         });
-        allProds = packer(flatprods);
+        setAllProds(packer(flatprods));
         break;
     }
     //console.log(allProds);
   };
-  sortCheck();
+
+  useEffect(() => {
+    likesChecker();
+  }, []);
+  useEffect(() => {
+    likesChecker();
+  }, [allprods_display]);
+  useEffect(() => {
+    likesChecker();
+  }, [likeupdate]);
+  const addToFavs = (item) => {
+    let newList = [];
+    let check = false;
+    let allLikes = JSON.parse(localStorage.getItem("likes"));
+    if (allLikes != null) {
+      if (allLikes.length < 1) {
+        newList.push(item);
+      } else {
+        allLikes.map((likes, index) => {
+          if (likes[0] == item[0] && likes[1] == item[1]) {
+            check = true;
+          } else {
+            newList.push(likes);
+          }
+        });
+        if (!check) {
+          newList.push(item);
+        }
+      }
+    }
+    if (allLikes == null) {
+      newList.push(item);
+    }
+    localStorage.setItem("likes", JSON.stringify(newList));
+    likeSave.current = JSON.parse(localStorage.getItem("likes"));
+    //console.log(JSON.parse(localStorage.getItem("likes")));
+    likesChecker();
+  };
+
+  const stanProds = useRef([]);
+  const likesChecker = () => {
+    //console.log("checker");
+
+    if (localStorage.getItem("likes") != null) {
+      let likeList = JSON.parse(localStorage.getItem("likes"));
+      likeSave.current = [...likeList];
+      let check = false;
+      let aProds = allprods_display.flat();
+
+      let likelikes = [];
+      JSON.parse(localStorage.getItem("likes")).map((p, ind) => {
+        likelikes.push(p[2]);
+      });
+      //console.log(likeList);
+      aProds.map((prod, index) => {
+        check = false;
+        likeList.map((like, ind) => {
+          if (prod.product_Key[0] == like[0]) {
+            if (prod.product_Key[1] == like[1]) {
+              prod.product_Key[2] = true;
+              //console.log(prod);
+              check = true;
+
+              return;
+            }
+          }
+        });
+        if (!check) {
+          prod.product_Key[2] = false;
+        }
+      });
+      //setAllProds([...packer(aProds)]);
+      stanProds.current = [...aProds];
+      //console.log(likelikes);
+
+      sortCheck(sortieren.current, aProds);
+      setLikes(likelikes);
+    }
+  };
+
+  if (allProds.length < 1) {
+    noProds.current = true;
+  } else {
+    noProds.current = false;
+  }
+  console.log(allProds);
   return (
     <div style={{ fontFamily: "PlayFair", fontWeight: "bold" }}>
       <AddDiv />
@@ -225,13 +306,15 @@ function Products({ allprods_display, pPage, setpPage }) {
                 <animated.img src={dropDown} alt="" style={dropDownImg} />
               </span>
             </SortButton>
-            {sortieren > 0 ? (
+            {sortieren.current > 0 ? (
               <SelectedSort
                 onClick={() => {
-                  setSortieren(0);
+                  sortCheck(0, stanProds.current);
+                  console.log("0 check");
+                  sortieren.current = 0;
                 }}
               >
-                {sortieren == 1 ? "Preis zu" : "Preis ab"}
+                {sortieren.current == 1 ? "Preis zu" : "Preis ab"}
               </SelectedSort>
             ) : (
               ""
@@ -240,7 +323,8 @@ function Products({ allprods_display, pPage, setpPage }) {
           <SortDropdown as={animated.div} style={dropdown}>
             <span
               onClick={() => {
-                setSortieren(2);
+                sortCheck(2, allProds);
+                sortieren.current = 2;
               }}
             >
               Preis ab
@@ -253,7 +337,8 @@ function Products({ allprods_display, pPage, setpPage }) {
             ></span>
             <span
               onClick={() => {
-                setSortieren(1);
+                sortCheck(1, allProds);
+                sortieren.current = 1;
               }}
             >
               Preis zu
@@ -284,14 +369,13 @@ function Products({ allprods_display, pPage, setpPage }) {
         ) : (
           <StyledDiv>
             {allProds[pPage].map((prod, index) => (
-              <a href={prod.product_link} style={{ textDecoration: "none" }}>
-                <SingleProd
-                  key={index}
-                  id={index}
-                  imgRes={prod.product_image_res[1]}
-                  produkt={prod}
-                />
-              </a>
+              <SingleProd
+                key={index}
+                id={index}
+                imgRes={prod.product_image_res[1]}
+                produkt={prod}
+                addToFavs={addToFavs}
+              />
             ))}
           </StyledDiv>
         )}

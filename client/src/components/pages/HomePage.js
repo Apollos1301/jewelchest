@@ -66,6 +66,8 @@ const FootDiv = styled.div`
   height: 300px;
 `;
 function Home({ passProd, allprods_display }) {
+  const [listUpdater, setListUpdater] = useState();
+  const [likeList, setLikeList] = useState();
   const [loading, setLoader] = useState(false);
 
   useEffect(() => {
@@ -75,19 +77,43 @@ function Home({ passProd, allprods_display }) {
     }, 1500);
   }, []);
   return loading ? (
-    <div style={{ overflowY: "hidden" , width:"100vw", height:"100vh" , display:"flex", justifyContent: "center", alignItems: "center"}}>
-      <PulseLoader color={"#ff75bf"} loading={loading} size={150} />
+    <div
+      style={{
+        overflowY: "hidden",
+        width: "100vw",
+        height: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <PulseLoader color={"#b5b5b5"} loading={loading} size={50} />
     </div>
   ) : (
     <div style={{ overflowY: "hidden" }}>
       <TopDiv>
-        <Navbar passProd={passProd} allprods_display={allprods_display} />
+        <Navbar
+          passProd={passProd}
+          allprods_display={allprods_display}
+          likeList={likeList}
+          setList={(newList) => {
+            setLikeList([...newList]);
+          }}
+          setListUpdater={(newUpdate) => {
+            setListUpdater([...newUpdate]);
+          }}
+        />
       </TopDiv>
       <MidDiv1>
         <Menue_prods />
       </MidDiv1>
       <MidDiv2>
-        <Products />
+        <Products
+          likeupdate={listUpdater}
+          setLikes={(list) => {
+            setLikeList([...list]);
+          }}
+        />
       </MidDiv2>
       <MidDiv3>
         <MidDiv3_inner>
