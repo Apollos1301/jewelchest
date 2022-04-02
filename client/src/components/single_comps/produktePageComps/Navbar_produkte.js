@@ -448,7 +448,12 @@ function Navbar_produkte({
       </Logo>
       <NavList>
         <NavListLeft>
-          <StyledLink to="/schmuck_produkte">SCHMUCK</StyledLink>
+          <StyledLink
+            to="/schmuck_produkte"
+            style={{ fontWeight: "700", textDecoration: "underline" }}
+          >
+            SCHMUCK
+          </StyledLink>
           <StyledLink to="/top_bewertet">TOP BEWERTET</StyledLink>
           <StyledLink to="/all_shops">SHOPS</StyledLink>
           <StyledLink to="/coupons">COUPONS</StyledLink>

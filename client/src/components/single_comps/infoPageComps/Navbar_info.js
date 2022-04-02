@@ -452,7 +452,12 @@ function Navbar_info({
           <StyledLink to="/top_bewertet">TOP BEWERTET</StyledLink>
           <StyledLink to="/all_shops">SHOPS</StyledLink>
           <StyledLink to="/coupons">COUPONS</StyledLink>
-          <StyledLink to="/info">ÜBER UNS</StyledLink>
+          <StyledLink
+            to="/info"
+            style={{ fontWeight: "700", textDecoration: "underline" }}
+          >
+            ÜBER UNS
+          </StyledLink>
         </NavListLeft>
         <NavListRight>
           <NavListRightSearchBar />

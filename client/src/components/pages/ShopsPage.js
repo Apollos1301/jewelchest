@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Navbar_shops from "../single_comps/shopsPageComps/Navbar_shops";
+import SetProducts from "../single_comps/shopsPageComps/SetProducts";
 
 import PulseLoader from "react-spinners/PulseLoader";
 
 const TopDiv = styled.div`
   width: 100%;
-  height: 800px;
+  height: 300px;
   overflow: hidden;
 `;
 
@@ -15,7 +16,7 @@ const MidDiv1 = styled.div`
   margin-top: 10px;
 `;
 
-function ShopsPage({ passProd, allprods_display }) {
+function ShopsPage({ passProd, allprods_display, shopList, deactProd }) {
   const [listUpdater, setListUpdater] = useState();
   const [likeList, setLikeList] = useState();
   const [loading, setLoader] = useState(false);
@@ -62,7 +63,9 @@ function ShopsPage({ passProd, allprods_display }) {
           }}
         />
       </TopDiv>
-      <MidDiv1></MidDiv1>
+      <MidDiv1>
+        <SetProducts deactProd={deactProd} shopList={shopList} />
+      </MidDiv1>
     </div>
   );
 }

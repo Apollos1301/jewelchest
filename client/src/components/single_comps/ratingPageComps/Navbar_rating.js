@@ -449,7 +449,12 @@ function Navbar_rating({
       <NavList>
         <NavListLeft>
           <StyledLink to="/schmuck_produkte">SCHMUCK</StyledLink>
-          <StyledLink to="/top_bewertet">TOP BEWERTET</StyledLink>
+          <StyledLink
+            to="/top_bewertet"
+            style={{ fontWeight: "700", textDecoration: "underline" }}
+          >
+            TOP BEWERTET
+          </StyledLink>
           <StyledLink to="/all_shops">SHOPS</StyledLink>
           <StyledLink to="/coupons">COUPONS</StyledLink>
           <StyledLink to="/info">ÜBER UNS</StyledLink>

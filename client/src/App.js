@@ -242,6 +242,7 @@ function App() {
             exact
             element={
               <ShopsPage
+                deactProd={deactivateProd}
                 shopList={product}
                 allprods_display={allprods_display}
                 passProd={(prods) => {
